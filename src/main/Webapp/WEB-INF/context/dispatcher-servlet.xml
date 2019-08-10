@@ -24,7 +24,7 @@
             base-package="com.shopingwebapp.controller" />
 
     <mvc:annotation-driven />
-    //InternalResourceViewResolver find jsp file request
+    <!--InternalResourceViewResolver find jsp file request-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
         <property name="prefix" value="/WEB-INF/views/" />
@@ -32,5 +32,9 @@
         <property name="suffix" value=".jsp" />
 
     </bean>
+
+    <mvc:interceptors>
+        <bean class="com.shopingwebapp.interceptor.ActionHandlerInterceptor"></bean>
+    </mvc:interceptors>
 
 </beans>

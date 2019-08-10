@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: B86M
@@ -11,17 +12,13 @@
 
 <html>
 
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Home Page</title>
+    </head>
 
-    <meta charset="UTF-8">
-
-    <title>Home Page</title>
-
-</head>
-
-<body>
-<h1>HELLO WORLD</h1>
-
-</body>
+    <body>
+        <a href="service_page">Service</a>
+    </body>
 
 </html>

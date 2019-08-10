@@ -13,6 +13,6 @@
         <title>Title</title>
     </head>
 <body>
-    <c:redirect url="/main_page"/>
+    <c:redirect url="main_page"/>
 </body>
 </html>

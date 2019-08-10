@@ -56,21 +56,21 @@
             <version>${springframework.version}</version>
         </dependency>
 
-        <!-- Servlet api -->
+        <!-- Servlet API-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.api.version}</version>
         </dependency>
 
-        <!-- JSP api -->
+        <!-- JSP API -->
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
             <version>${jsp.api.version}</version>
         </dependency>
 
-        <!-- JSTL -->
+        <!-- JSTL API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -83,8 +83,15 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.4.Final</version>
         </dependency>
-    </dependencies>
 
+        <!-- MySQL JDBC driver -->
+        <!-- http://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
