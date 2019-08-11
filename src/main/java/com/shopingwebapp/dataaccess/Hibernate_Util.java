@@ -273,3 +273,11 @@ public class Hibernate_Util implements hibernate {
         return list;
     }
 }
+
+class Main {
+    public static void main(String[] args) {
+        hibernate hibernate = new Hibernate_Util();
+        HashMap<String, Long> productHashMap = hibernate.Get_Total_Rating_by_Type(1);
+
+    }
+}

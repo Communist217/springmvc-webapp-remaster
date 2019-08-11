@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@include file="../taglib/taglib.jsp"%>
 <%--
   Created by IntelliJ IDEA.
   User: MinhPC
@@ -8,12 +10,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <link href="Style/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="<c:url value='/template/css/bootstrap-4.1.3-dist/css/bootstrap.css'/>" rel="stylesheet" type="text/css">
         <title>Login</title>
     </head>
     <body style="background: rgb(143, 254, 173) ; font-family: 'Calibri', sans-serif;">
         <div style="margin-top:300px;">
-        <form action="Log_In_MainPage" method="post">
+        <%--@elvariable id="User" type="com.entity.user.User"--%>
+        <form:form action="Log_In" method="post" modelAttribute="User">
             <h1 style="text-align:  center;">Log In</h1>
             <p style="text-align: center; color: green" ><b>${LoggedOut}</b> </p>
             <p style="color: red; text-align: center;"><b>${False}</b></p>
@@ -23,18 +26,18 @@
                 <tr>
                     <td><i>Username</i></td>
                     <td>
-                        <span><input type="text" class="textfield" placeholder="Type your username" name="Username" value="Username" style="height:25px;width:250px;border-radius:5px;background-color: aliceblue;border:thin;padding-left:10px; " /></span>
+                        <span><form:input type="text" class="textfield" placeholder="Type your username" name="Username" value="Username" style="height:25px;width:250px;border-radius:5px;background-color: aliceblue;border:thin;padding-left:10px; "  path="userID"/></span>
                     </td>
                 </tr>
                 <tr>
                     <td><i>Password</i></td>
                     <td>
-                        <span><input type="password" class="textfield" placeholder="Type your password" name="Password" value="12345" style="height:25px;width:250px;border-radius:5px;background-color: aliceblue;border:thin;padding-left:10px;"  /></span>
+                        <span><form:input type="password" class="textfield" placeholder="Type your password" name="Password" value="12345" style="height:25px;width:250px;border-radius:5px;background-color: aliceblue;border:thin;padding-left:10px;"   path="password"/></span>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><a href="Password_adjust.jsp">Forgot Password?</a> </td>
+                    <td><a href="change_password">Forgot Password?</a> </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -43,15 +46,13 @@
                     </td>
                 </tr>
             </table>
-        </form>
+        </form:form>
         <div align="center" style="margin-top: 200px;">
             <table>
                 <tr>
                     <td></td>
                     <td>
-                        <form action="CreateAccount.jsp" >
-                            <button type="submit" style="border-radius:10px; background-color:midnightblue; color:azure; border-color:midnightblue; width:100px;" >Create New Account</button>
-                        </form>
+                        <a href="/create-new-account" style="border-radius:10px; background-color:midnightblue; color:azure; border-color:midnightblue; width:100px;" >Create New Account</a>
                     </td>
                 </tr>
             </table>
@@ -59,8 +60,8 @@
     </div>
     </body>
     <!--Load jquery script lib-->
-    <script src="Script/js/JQuery/jquery-3.3.1.min.js"></script>
+    <script src="<c:out value='/template/script/JQuery/jquery-3.3.1.min.js'/>"></script>
     <!--Load  bootstrap script lib-->
-    <script src="Script/js/Bootstrap/popper.min.js"></script>
-    <script src="Script/js/Bootstrap/bootstrap.js"></script>
+    <script src="<c:out value='/template/script/Bootstrap/popper.min.js'/>"></script>
+    <script src="<c:out value='/template/script/Bootstrap/bootstrap.js'/>"></script>
 </html>

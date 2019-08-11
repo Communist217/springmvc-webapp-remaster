@@ -9,11 +9,12 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
 //POJO Review for table review in onlineshopdatabase
-@javax.persistence.Table(name = "review")
+@Table(name = "review")
 public class Review implements Serializable {
 
     private int PostID;

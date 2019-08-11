@@ -1,0 +1,202 @@
+/*Main Page*/
+html {
+    scroll-behavior: smooth;
+}
+
+.Content-area {
+    padding-top: 55px;
+    padding-left: 200px;
+    padding-right: 200px;
+    min-width: 930px;
+    margin: auto;
+
+}
+#Sort_option {
+    float: right;
+    margin: 7px;
+    border: none;
+}
+.Product-list {
+    margin: 0px 40px;
+}
+
+.boundary_box {
+    position: relative;
+    width: 239px;
+    height: 310px;
+    float: left;
+}
+
+.boundary_box img {
+    display: block;
+    margin: 27px auto;
+}
+
+.boundary_box a:hover{
+    text-decoration: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    float: left;
+    border: 1px solid #eee;
+}
+
+ul h6 {
+    color: #333;
+    display: block;
+    margin: 5px 15px;
+}
+
+a:focus {
+    outline: none;
+}
+
+ul a {
+    color: #e10c00;
+}
+
+.Price {
+    margin: 5px 15px;
+    color :#e10c00;
+}
+
+.buttons {
+    display: inline-block;
+    float: left;
+    margin-left: 34px;
+    margin-right: 32px;
+    padding-left: 1px;
+}
+
+.Buy {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #20c997;
+    color: #20c997;
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+    transition: all 0.5s;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.Rating {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #f76b1c;
+    color: #f76b1c;
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+    transition: all 0.5s;
+    margin-left: 6px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding-top: 5px;
+ }
+
+.Buy:hover {
+    background-color: #20c997;
+    color: white;
+}
+
+a:hover .Price {
+    text-decoration: none;
+}
+
+a:hover h6 {
+    color: #005cbf;
+}
+
+.Rating:hover {
+    background-color: #f76b1c;
+    color: white;
+}
+
+/* The container */
+.container_radio {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container_radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container_radio:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container_radio input:checked ~ .checkmark {
+    background-color: #005cbf;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container_radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container_radio .checkmark:after {
+    left: 8px;
+    top: 4px;
+    width: 9px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 1300px) {
+    .Product-list {
+        margin: auto;
+        width: 800px;
+    }
+}

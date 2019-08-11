@@ -1,0 +1,240 @@
+/*Product Page*/
+html {
+    scroll-behavior: smooth;
+}
+
+.Product-Content-Area {
+    padding-top: 55px;
+}
+
+#Content-group {
+    position: absolute;
+    right: 200px;
+    left: 200px;
+    min-width: 400px;
+    margin: auto;
+    max-width: 1119px;
+}
+/*Image*/
+.Image {
+    float: left;
+    padding-top: 5px;
+    border: 1px solid #eee;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.Right_Content {
+    float: left;
+    margin-left: 100px;
+    min-width: 300px;
+    max-width: 400px;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.Product_button {
+    display: inline-block;
+    float: left;
+}
+
+.Out_of_stock {
+    margin-right: 100px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #005cbf;
+    color: #005cbf;
+    width: 95px;
+    height: 40px;
+    font-size: 16px;
+    transition: all 0.5s;
+    opacity: 0.5;
+}
+
+.Out_of_stock:hover {
+    background-color: #005cbf;
+    color: white;
+}
+
+.Product_buy_button_succeeded, .Product_buy_button_flopped {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #20c997;
+    color: #20c997;
+    display: inline-block;
+    width: 95px;
+    height: 40px;
+    text-align: center;
+    padding-top: 6px;
+    font-size: 16px;
+    transition: all 0.5s;
+}
+
+.Product_review_button {
+    float: right;
+    margin-top: -20px;
+    display: block;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #005cbf;
+    color: #005cbf;
+    width: 95px;
+    height: 40px;
+    font-size: 16px;
+    transition: all 0.5s;
+}
+
+.Product_review_button:hover {
+    background-color: #005cbf;
+    color: white;
+}
+.Product_review_button:focus {
+    outline: none;
+}
+
+.Product_buy_button_succeeded:hover, .Product_buy_button_flopped:hover {
+    background-color: #20c997;
+    color: white;
+}
+
+.Product_buy_button_succeeded:focus, .Product_buy_button_flopped:focus {
+    outline: none;
+}
+
+#Comment {
+    position: absolute;
+    width: 450px;
+    overflow: scroll;
+    height: fit-content;
+    max-height: 400px;
+    margin: 10px 0px;
+}
+
+.Reviews {
+    padding-left: 20px;
+}
+
+.Reviews_Comments {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.Reply_Sent {
+    background: url("../Style/IMG/reply-button.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    border: none;
+    position: absolute;
+}
+
+.Reply_Sent:focus {
+    outline: none;
+}
+
+.Post_review {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin-top: 5px;
+    margin-bottom: -0.48rem;
+    background-color: #e9ecef;
+}
+
+.Opinion_form {
+    margin: 15px;
+}
+
+.Review-input:focus {
+    outline: none;
+    border: 1px solid #005cbf;
+}
+
+.Length_Caution {
+    background-color: #f2bcbc;
+    border: 2px solid #dc3545;
+}
+
+.Reply-input {
+    resize: none;
+    height: 40px;
+    width: 90%;
+    padding-left: 6px;
+    padding-top: 7px;
+    border: none;
+    border-bottom: 2px solid #005cbf;
+}
+
+.Reply-input:focus {
+    outline: none;
+}
+
+.Review-input {
+    resize: vertical;
+    height: 100px;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 6px;
+    border: #ccc 1px solid;
+    border-radius: 5px;
+}
+
+.like_disabled {
+    opacity: 0.5;
+}
+
+.review_list {
+    margin-top: 10px;
+    margin-left: -20px;
+    margin-right: 10px;
+    list-style: none;
+}
+
+.Reply_Comments {
+    border: #ccc 1px solid;
+    border-radius: 10px;
+    margin-left: 20px;
+    display: table;
+    padding: 10px;
+    background: #e9ecef;
+}
+/*For mobile devices*/
+@media only screen and (max-width: 1300px) {
+
+    html {
+        font-size: 11px;
+    }
+    #Content-group {
+        float: none;
+        right: 100px;
+        left: 100px;
+    }
+
+    .Right_Content {
+        float: none;
+        margin: auto;
+    }
+
+    .Image {
+        float: none;
+        margin-bottom: 40px;
+    }
+
+    .Top-area {
+        padding: 0;
+    }
+
+    #Comment {
+        overflow: visible;
+        width: 400px;
+    }
+
+    .drop_down_content {
+        padding: 0;
+    }
+
+}
+
