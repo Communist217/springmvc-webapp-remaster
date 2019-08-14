@@ -51,11 +51,13 @@
             </tr>
             <tr>
                 <td>
-                            <span><select style="width: 300px; height: 30px;" name="Create_Gender">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Others">Others</option>
-                            </select></span>
+                    <span>
+                        <select style="width: 300px; height: 30px;" name="Create_Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </span>
                 </td>
             </tr>
             <tr>

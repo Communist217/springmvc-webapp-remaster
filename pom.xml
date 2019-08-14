@@ -50,11 +50,6 @@
             <artifactId>spring-context</artifactId>
             <version>${springframework.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${springframework.version}</version>
-        </dependency>
 
         <!-- Servlet API-->
         <dependency>
@@ -78,19 +73,21 @@
         </dependency>
 
         <!-- Hibernate -->
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.4.Final</version>
+            <version>5.3.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
         </dependency>
 
         <!-- MySQL JDBC driver -->
-        <!-- http://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.34</version>
-        </dependency>
+
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>

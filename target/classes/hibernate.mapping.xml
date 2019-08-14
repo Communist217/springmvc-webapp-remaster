@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+    <class name = "main.com.entity.order.Order" table = "orders">
+
+        <meta attribute = "class-description">
+            This class contains the order.
+        </meta>
+
+        <id name = "OrderID" type = "int" column = "orderID">
+            <generator class="native"/>
+        </id>
+
+        <property name = "OrderDate" column = "orderDate" type = "string"/>
+        <property name = "ShippedDate" column = "ShippedDate" type = "timestamp"/>
+        <property name = "RequiredDate" column = "RequiredDate" type = "timestamp"/>
+        <property name = "UserID" column = "MemberID" type="int"/>
+        <property name = "NoteFromCus" column="noteFromCustomer" type="string"/>
+        <property name = "Comments" column="Comments" type="string"/>
+        <property name = "Status" column="Status" type="string"/>
+        <property name = "Payment" column="Payment" type="long"/>
+        <property name = "PaymentMethod" column="PaymentMethod" type="string"/>
+    </class>
+
+    <class name="main.com.entity.review.Review" table="review">
+
+        <meta attribute="class-description">
+            This class contains information about user's review.
+        </meta>
+
+        <id name="PostID" type="int" column="postid">
+            <generator class="identity"/>
+        </id>
+
+        <property name="userID" column="memberid" type="int" unique-key="Review_unique"/>
+        <property name="productID" column="ProductID" type="int" unique-key="Review_unique"/>
+        <property name="review_comment" column="ReviewComment" type="text"/>
+        <property name="rating_value" column="RatingValue" type="double"/>
+        <bag name="replies" table="reply" cascade="all">
+            <key column="PostID" on-delete="cascade"/>
+            <one-to-many class="main.com.entity.reply.Reply"/>
+        </bag>
+
+        <bag name="likes" table="like_review" cascade="all">
+            <key column="PostID" on-delete="cascade"/>
+            <one-to-many class="main.com.entity.like.Like"/>
+        </bag>
+
+    </class>
+
+    <class name="main.com.entity.reply.Reply" table="reply">
+
+        <meta attribute="class-description">
+            This class contains information about user's review.
+        </meta>
+
+        <id name="replyID" column="ReplyID" type="int">
+            <generator class="identity"/>
+        </id>
+
+        <property name="userID" column="MemberID" type="int" not-null="true"/>
+        <property name="postID" column="PostID" type="int" not-null="true"/>
+        <property name="reply" column="ReplyComment" type="text" not-null="true"/>
+    </class>
+
+    <class name="main.com.entity.like.Like" table="like_review">
+
+        <meta attribute="class-description">
+            This class contains information about likes.
+        </meta>
+
+        <id name="likeID" column="LikeID" type="long">
+            <generator class="identity"/>
+        </id>
+
+        <property name="userID" column="MemberID" type="int" not-null="true"/>
+        <property name="postID" column="PostID" type="int" not-null="true"/>
+    </class>
+
+    <class name="main.com.entity.product.ProductType" table="producttype">
+        <meta attribute="class-description">
+            This class contains information about product type.
+        </meta>
+        <id name="typeID" column="TypeID" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="typename" column="Typename" type="string"/>
+
+        <bag name="productList" table="products" cascade="all">
+            <key column="TypeID" on-delete="cascade"/>
+            <one-to-many class="main.com.entity.product.Product"/>
+        </bag>
+    </class>
+
+    <class name="main.com.entity.product.Product" table="products">
+        <meta attribute="class-description">
+            This class contains information about products.
+        </meta>
+        <id name="productID" column="ProductID" type="int">
+            <generator class="identity"/>
+        </id>
+
+        <property name="typeID" column="TypeID" type="int" not-null="true"/>
+        <property name="productname" column="ProductName" type="string" not-null="true"/>
+        <property name="price" column="Price" type="int" not-null="true"/>
+        <property name="popularity" column="Popularity" type="int" not-null="true"/>
+        <property name="description" column="Description" type="string" not-null="true"/>
+        <property name="stock" column="Stock" type="int" not-null="true"/>
+        <property name="imagesource" column="ImageSource" type="string" not-null="true"/>
+        <property name="warranty" column="warranty" type="string" not-null="true"/>
+    </class>
+
+    <class name="main.com.entity.user.User" table="members">
+        <meta attribute="class-description">
+            This class contains information about products.
+        </meta>
+        <id name="userID" column="memberid" type="int">
+            <generator class="identity"/>
+        </id>
+
+        <property name="username" column="username" type="string" not-null="true" unique="true"/>
+        <property name="password" column="password" type="string" not-null="true" />
+        <property name="fullname" column="fullname" type="string" not-null="true"/>
+        <property name="address" column="address" type="string" not-null="true"/>
+        <property name="phonenumber" column="phone" type="string" not-null="true"/>
+        <property name="gender" column="gender" type="string" not-null="true"/>
+        <property name="birthdate" column="birthdate" type="string" not-null="true"/>
+        <property name="email" column="email" type="string" not-null="true"/>
+    </class>
+</hibernate-mapping>
