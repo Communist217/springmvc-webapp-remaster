@@ -40,12 +40,12 @@
         <property name="review_comment" column="ReviewComment" type="text"/>
         <property name="rating_value" column="RatingValue" type="double"/>
         <bag name="replies" table="reply" cascade="all">
-            <key column="PostID" on-delete="cascade"/>
+            <key column="PostID"/>
             <one-to-many class="main.com.entity.reply.Reply"/>
         </bag>
 
         <bag name="likes" table="like_review" cascade="all">
-            <key column="PostID" on-delete="cascade"/>
+            <key column="PostID"/>
             <one-to-many class="main.com.entity.like.Like"/>
         </bag>
 
@@ -90,7 +90,7 @@
         <property name="typename" column="Typename" type="string"/>
 
         <bag name="productList" table="products" cascade="all">
-            <key column="TypeID" on-delete="cascade"/>
+            <key column="TypeID"/>
             <one-to-many class="main.com.entity.product.Product"/>
         </bag>
     </class>

@@ -2,12 +2,16 @@ package main.com.shopingwebapp.DAO;
 
 import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
+import main.com.entity.user.User;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface DAOHibernate {
     //The SessionFactory is a factory of session and client of ConnectionProvider. It holds second level cache (optional) of data. The org.hibernate.SessionFactory interface provides factory method to get the object of Session.
+
+    //Get user account
+    public User getAccount(String Username, String Password);
 
     //Store User review about product into db
     public void Review_Create(int UserID, int ProductID, String review_cmt, double rating);
@@ -35,6 +39,7 @@ public interface DAOHibernate {
     //Get producttype by ID
     public ProductType get_ProductType_by_ID(int ID);
 
+    //Get productlist by sorting type and option
     public List<Product> get_Product_List(String type, String sort_option);
 
     public List<Product> Product_Search(String search);

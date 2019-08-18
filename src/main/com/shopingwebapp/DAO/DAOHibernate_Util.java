@@ -1,72 +1,97 @@
 package main.com.shopingwebapp.DAO;
 
+import main.com.entity.like.Like;
 import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
 import main.com.entity.reply.Reply;
+import main.com.entity.review.Review;
+import main.com.entity.user.User;
 import org.hibernate.Hibernate;
+import org.hibernate.query.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 @Repository(value = "DAOHibernate")
 public class DAOHibernate_Util implements DAOHibernate {
     @Autowired
     private HibernateTemplate template;
+    private boolean existence;
 
     public void setTemplate(HibernateTemplate template) {
         this.template = template;
     }
 
     @Override
+    public User getAccount(String Username, String Password) {
+        Session session = template.getSessionFactory().openSession();
+
+        User user = new User();
+        try {
+            Query query = session.createQuery("from User where username =:username and password =:password");
+            query.setParameter("username", Username);
+            query.setParameter("password", Password);
+
+            if (query.getResultList().size() == 0) {
+                System.out.println(query.getResultList());
+                existence = false;
+            }
+            else {
+                existence = true;
+                List<User> userList = query.getResultList();
+                System.out.println(query.getResultList());
+                user = userList.get(0);
+            }
+        } catch (Exception e) {
+            System.out.println();
+        }
+        return user;
+    }
+
+    @Override
     public void Review_Create(int UserID, int ProductID, String review_cmt, double rating) {
-        //Session interface provides methods to insert, update and delete the object. It also provides factory methods for Transaction, Query and Criteria.
-        /*Session session = getSessionFactory().openSession();
-        //Start a transaction which may consists of one or more crude operations like INSERT,SELECT,DELETE
-        Transaction transaction = session.beginTransaction();
 
         //A new review is created,
         Review user_review = new Review();
-        try {
-            //user_review is Transient
-            user_review.setUserID(UserID);
-            user_review.setProductID(ProductID);
-            user_review.setReview_comment(review_cmt);
-            user_review.setRating_value(rating);
+        //user_review is Transient
+        user_review.setUserID(UserID);
+        user_review.setProductID(ProductID);
+        user_review.setReview_comment(review_cmt);
+        user_review.setRating_value(rating);
 
-            //user_review is persistence
-            session.persist(user_review);
-            //Committing all changes happened during a transaction so that database remains in consistent state after operation
-            transaction.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            transaction.rollback();
-        }
-        session.close();*/
+        //user_review is persistence
+        template.save(user_review);
     }
 
     @Override
     public void Reply_Create(int Uid, int PostID, String Reply) {
-        /*Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();*/
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
 
-        Reply reply = new Reply();
-        //Transient Object, not determined by Hibernate
-        reply.setUserID(Uid);
-        reply.setPostID(PostID);
-        reply.setReply(Reply);
-        template.persist(reply);
-        /*session.persist(reply);
-           transaction.commit();*/
-
+        try {
+            Reply reply = new Reply();
+            //Transient Object, not determined by Hibernate
+            reply.setUserID(Uid);
+            reply.setPostID(PostID);
+            reply.setReply(Reply);
+            session.persist(reply);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        session.close();
     }
 
     @Override
     public boolean Like_Create(int userID, int postID) {
-        /*Session session = sessionFactory.openSession();
+        Session session = template.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
         Like like_review = new Like();
@@ -83,35 +108,27 @@ public class DAOHibernate_Util implements DAOHibernate {
             transaction.rollback();
             return false;
         }
-        session.close();*/
-
         return true;
     }
 
     @Override
     public boolean Remove_Like(int userID, int postID) {
-        /*Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
         try {
             //Create delete query
-            Query query = session.createQuery("DELETE from Like where postID = :p and userID = :u");
-
+            Query query = session.createQuery("Delete from Like where userID = :u and postID =:p");
             //Set Parameter
-            query.setParameter("p", postID);
+            query.setParameter("p" , postID);
             query.setParameter("u" , userID);
-
             query.executeUpdate();
-            tx.commit();
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            tx.rollback();
+            transaction.rollback();
             return false;
         }
         session.close();
-
-
-*/
         return true;
     }
 
@@ -120,19 +137,14 @@ public class DAOHibernate_Util implements DAOHibernate {
         //Session session = sessionFactory.openSession();
 
         long count = 0;
-        /*try {
-            Review review = session.get(Review.class, postID);
+        Review review = template.get(Review.class, postID);
 
-            Iterator<Like> allLikes= review.getLikes().iterator();
-            while (allLikes.hasNext()) {
-                Like like = allLikes.next();
-                //System.out.println("UID: " + like.getUserID() + " LikeID: " + like.getLikeID() + " PostID: " + like.getPostID());
-                count++;
-            }
-        } catch (Exception e) {
-            System.out.println("No like yet.");
+        Iterator<Like> allLikes= review.getLikes().iterator();
+        while (allLikes.hasNext()) {
+            Like like = allLikes.next();
+            System.out.println("UID: " + like.getUserID() + " LikeID: " + like.getLikeID() + " PostID: " + like.getPostID());
+            count++;
         }
-        session.close();*/
 
         return count;
     }
@@ -140,15 +152,15 @@ public class DAOHibernate_Util implements DAOHibernate {
     @Override
     public long Get_Total_Rating(int ProductID) {
         //Session session = this.sessionFactory.openSession();
+        Session session = template.getSessionFactory().openSession();
 
         long total = 0;
-        /*Query query = session.createQuery("select count(rating_value) from Review where productID = :productID");
+        Query query = session.createQuery("select count(rating_value) from Review where productID = :productID");
         query.setParameter("productID", ProductID);
+        template.getSessionFactory().openSession().close();
         List<Long> count = query.getResultList();
         total += count.get(0);
-
         session.close();
-*/
         return total;
     }
 
@@ -159,38 +171,12 @@ public class DAOHibernate_Util implements DAOHibernate {
         //Rating type for overall rating bar
         String[] type = {"Positive", "Mixed", "Negative"};
         HashMap<String,Long> avarage_rating_number = new LinkedHashMap<>();
-        /*try {
-            //Create select query
-            Query query = session.createQuery("select count(rating_value) from Review where rating_value >= :minrate and rating_value <= :maxrate and productID = :productID");
-
-            //Set Parameter
-            query.setParameter("minrate", 3.5);
-            query.setParameter("maxrate", 5.0);
-            query.setParameter("productID", ProductID);
-            //Initiate positive reviews counting number;
-            List<Long> positive = query.getResultList();
-            avarage_rating_number.put(type[0], positive.get(0));
-
-            //Set Parameter
-            query.setParameter("minrate", 2.5);
-            query.setParameter("maxrate", 3.0);
-            query.setParameter("productID", ProductID);
-            //Initiate mixed reviews counting number;
-            List<Long> mixed = query.getResultList();
-            avarage_rating_number.put(type[1], mixed.get(0));
-
-            //Set Parameter
-            query.setParameter("minrate", 0.0);
-            query.setParameter("maxrate", 2.0);
-            query.setParameter("productID", ProductID);
-            //Initiate negative reviews counting number;
-            List<Long> negative = query.getResultList();
-            avarage_rating_number.put(type[2], negative.get(0));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        session.close();*/
+        List<Long> positive_rating = (List<Long>) template.find("select count(rating_value) from Review where rating_value >= 3.5 and rating_value <= 5 and productID = " + ProductID);
+        avarage_rating_number.put(type[0], positive_rating.get(0));
+        List<Long> mixed_rating = (List<Long>) template.find("select count(rating_value) from Review where rating_value >= 2.5 and rating_value <= 3 and productID = " + ProductID);
+        avarage_rating_number.put(type[1], mixed_rating.get(0));
+        List<Long> negative_rating = (List<Long>) template.find("select count(rating_value) from Review where rating_value <= 2 and productID = " + ProductID);
+        avarage_rating_number.put(type[2], mixed_rating.get(0));
 
         return avarage_rating_number;
     }
@@ -200,6 +186,7 @@ public class DAOHibernate_Util implements DAOHibernate {
         //Session session = sessionFactory.openSession();
 
         Product getProduct = new Product();//= session.get(Product.class, ProductID);
+        getProduct = template.load(Product.class, ProductID);
         //session.close();
 
         return getProduct;
@@ -207,19 +194,13 @@ public class DAOHibernate_Util implements DAOHibernate {
 
     @Override
     public ProductType get_ProductType_by_ID(int ID) {
-        /*Session session = sessionFactory.openSession();
-
-        ProductType productBytType = session.get(ProductType.class, ID);
-        session.close();*/
         ProductType productBytType = new ProductType();
-        productBytType = template.get(ProductType.class, ID);
+        productBytType = template.load(ProductType.class, ID);
         return productBytType;
     }
 
     @Override
     public List<Product> get_Product_List(String type, String sort_option) {
-        //Session session = sessionFactory.openSession();
-
         List<Product> list = new ArrayList<Product>();
         List<Product> getProductout = new ArrayList<Product>();
         switch (type) {
@@ -266,13 +247,13 @@ public class DAOHibernate_Util implements DAOHibernate {
 
     @Override
     public List<Product> Product_Search(String search) {
-        //Session session = sessionFactory.openSession();
+        Session session = template.getSessionFactory().openSession();
         List<Product> list = new ArrayList<Product>();
-        /*Query query = session.createQuery("from Product where productname like  :productname ");
+        Query query = session.createQuery("from Product where productname like  :productname ");
         query.setParameter("productname", "%"+ search + "%");
 
         list = query.getResultList();
-        session.close();*/
+        session.close();
         return list;
     }
 
@@ -284,7 +265,7 @@ class Main {
     public static void main(String[] args) {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("/resources/applicationContent.xml");
         DAOHibernate daoHibernate_util = (DAOHibernate) context.getBean("daoHibernateUtil");
-        //daoHibernate_util.Reply_Create(1, 1, "Kiss my ass");
+        daoHibernate_util.Reply_Create(1, 1, "Kiss my ass");
         ProductType test = daoHibernate_util.get_ProductType_by_ID(1);
         System.out.println(test.getTypeID() + " " + test.getTypename());
         Iterator<Product> productIterator = test.getProductList().iterator();
@@ -292,15 +273,20 @@ class Main {
             Product product = it.next();
             System.out.println(product.getProductname() + " " + product.getPrice());
         }
-        /*HashMap<String, Long> productHashMap = daoHibernate_util.Get_Total_Rating_by_Type(1);
+        HashMap<String, Long> productHashMap = daoHibernate_util.Get_Total_Rating_by_Type(1);
         for (Map.Entry product: productHashMap.entrySet()) {
             System.out.println(product.getKey() + " " + product.getValue());
-        }*/
-        Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
-
+        }
+        boolean disLiked = daoHibernate_util.Remove_Like(1, 1 );
+        System.out.println(disLiked);
+        boolean isLiked = daoHibernate_util.Like_Create(1, 1);
+        System.out.println(isLiked);
+        long Total_rating = daoHibernate_util.Get_Total_Rating(7);
+        System.out.println(Total_rating);
+        /*Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
         for (Iterator<Product> it = productIterator2; it.hasNext(); ) {
             Product product = it.next();
             System.out.println(product.getProductname() + " " + product.getPrice());
-        }
+        }*/
     }
 }

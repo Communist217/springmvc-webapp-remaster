@@ -21,7 +21,7 @@
               http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan
-            base-package="com.shopingwebapp.controller" />
+            base-package="main.com.shopingwebapp.controller"/>
 
     <mvc:annotation-driven />
     <!--InternalResourceViewResolver find jsp file request-->
