@@ -1,6 +1,9 @@
 package main.com.shopingwebapp.service.implementing;
 
+import main.com.entity.user.User;
+import main.com.shopingwebapp.DAO.DAOHibernate_Util;
 import main.com.shopingwebapp.service.HomeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,14 +11,17 @@ import java.util.List;
 
 @Service
 public class HomeServiceImplement implements HomeService {
-
+    private User user;
     @Override
-    public List<String> Load_Menu_Service() {
-        List<String> service_menu = new ArrayList<>();
-        service_menu.add("Phone");
-        service_menu.add("Laptop");
-        service_menu.add("Accessories");
-        service_menu.add("Contact");
-        return service_menu;
+    public boolean checkAccount(String Username, String Password) {
+        user = daoHibernate_util.getAccount(Username, Password);
+        if (daoHibernate_util.isExistence()) {
+            return true;
+        }
+        return false;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

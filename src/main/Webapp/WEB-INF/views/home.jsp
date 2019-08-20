@@ -18,7 +18,7 @@
     </head>
 
     <body>
-    <h1>WELCOME ${User.username}!</h1>
+    <h1>WELCOME ${username}!</h1>
         <a href="service-page">Service</a>
         <a href="login">Login</a>
     </body>

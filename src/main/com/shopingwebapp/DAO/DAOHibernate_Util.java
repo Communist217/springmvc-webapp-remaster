@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 @Repository(value = "DAOHibernate")
 public class DAOHibernate_Util implements DAOHibernate {
-    @Autowired
     private HibernateTemplate template;
     private boolean existence;
 
@@ -52,6 +51,10 @@ public class DAOHibernate_Util implements DAOHibernate {
             System.out.println();
         }
         return user;
+    }
+
+    public boolean isExistence() {
+        return existence;
     }
 
     @Override
@@ -268,6 +271,8 @@ class Main {
         daoHibernate_util.Reply_Create(1, 1, "Kiss my ass");
         ProductType test = daoHibernate_util.get_ProductType_by_ID(1);
         System.out.println(test.getTypeID() + " " + test.getTypename());
+
+        User user = daoHibernate_util.getAccount("IAMGAY", "12345");
         Iterator<Product> productIterator = test.getProductList().iterator();
         for (Iterator<Product> it = productIterator; it.hasNext(); ) {
             Product product = it.next();

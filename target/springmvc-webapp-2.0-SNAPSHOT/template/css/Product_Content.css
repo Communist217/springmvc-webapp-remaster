@@ -207,6 +207,7 @@ html {
     html {
         font-size: 11px;
     }
+
     #Content-group {
         float: none;
         right: 100px;
@@ -234,6 +235,10 @@ html {
 
     .drop_down_content {
         padding: 0;
+    }
+
+    h3 {
+        text-align: center;
     }
 
 }

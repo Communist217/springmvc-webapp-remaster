@@ -15,7 +15,6 @@ public class ActionHandlerInterceptor implements HandlerInterceptor {
 
     @Override //Loading contents before controller is load up
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        httpServletRequest.setAttribute("service_list", homeService.Load_Menu_Service());
         return true;
     }
 
