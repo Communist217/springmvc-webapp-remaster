@@ -24,7 +24,7 @@
 
         <property name="mappingResources">
             <list>
-                <value>hibernate.mapping.xml</value>
+                <value>/resources/hibernate.mapping.xml</value>
             </list>
         </property>
 

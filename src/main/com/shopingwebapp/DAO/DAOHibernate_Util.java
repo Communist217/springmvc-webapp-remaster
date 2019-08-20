@@ -10,15 +10,20 @@ import org.hibernate.Hibernate;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import java.util.*;
-@Repository(value = "DAOHibernate")
+@Repository(value = "daoHibernateUtil")
 public class DAOHibernate_Util implements DAOHibernate {
     private HibernateTemplate template;
     private boolean existence;
@@ -266,9 +271,11 @@ public class DAOHibernate_Util implements DAOHibernate {
 
 class Main {
     public static void main(String[] args) {
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("/resources/applicationContent.xml");
-        DAOHibernate daoHibernate_util = (DAOHibernate) context.getBean("daoHibernateUtil");
-        daoHibernate_util.Reply_Create(1, 1, "Kiss my ass");
+        Resource r = new ClassPathResource("resources/applicationContent.xml");
+        BeanFactory factory = new XmlBeanFactory(r);
+        /*AbstractApplicationContext context = new Path("resources/applicationContent.xml");*/
+        DAOHibernate_Util daoHibernate_util = (DAOHibernate_Util) factory.getBean("daoHibernateUtil");
+        //daoHibernate_util.Reply_Create(1, 1, "Kiss my ass");
         ProductType test = daoHibernate_util.get_ProductType_by_ID(1);
         System.out.println(test.getTypeID() + " " + test.getTypename());
 
@@ -282,10 +289,10 @@ class Main {
         for (Map.Entry product: productHashMap.entrySet()) {
             System.out.println(product.getKey() + " " + product.getValue());
         }
-        boolean disLiked = daoHibernate_util.Remove_Like(1, 1 );
-        System.out.println(disLiked);
-        boolean isLiked = daoHibernate_util.Like_Create(1, 1);
-        System.out.println(isLiked);
+//        boolean disLiked = daoHibernate_util.Remove_Like(1, 1 );
+//        System.out.println(disLiked);
+//        boolean isLiked = daoHibernate_util.Like_Create(1, 1);
+//        System.out.println(isLiked);
         long Total_rating = daoHibernate_util.Get_Total_Rating(7);
         System.out.println(Total_rating);
         /*Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
