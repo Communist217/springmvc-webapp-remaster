@@ -13,6 +13,9 @@ public interface DAOHibernate {
     //Get user account
     public User getAccount(String Username, String Password);
 
+    //Create new account from form
+    public boolean Create_New_Account(String Create_Username, String Create_Password, String Fullname, String Address, String Phone, String Gender, String BirthDate, String Email);
+
     //Store User review about product into db
     public void Review_Create(int UserID, int ProductID, String review_cmt, double rating);
 
@@ -42,5 +45,5 @@ public interface DAOHibernate {
     //Get productlist by sorting type and option
     public List<Product> get_Product_List(String type, String sort_option);
 
-    public List<Product> Product_Search(String search);
+    public List<Product> Product_Search(String search, int typeid);
 }

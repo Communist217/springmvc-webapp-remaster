@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller //This tells that it is a spring controller
-public class Login_Controller {
+import javax.servlet.http.HttpServletRequest;
+
+//This tells that it is a spring controller
+@Controller (value = "LoginController")
+public class Login_Register_Controller {
     //Model and View push data to view
     @Autowired
     private HomeServiceImplement homeServiceImplement;
@@ -25,17 +28,29 @@ public class Login_Controller {
     }
 
     @RequestMapping(value = "/main-page", method = RequestMethod.POST)
-    public ModelAndView main_page(@RequestParam(value = "Username", required = true) String username, @RequestParam(value = "Password", required = true) String password , ModelMap modelMap) {
+    public ModelAndView main_page(@RequestParam(value = "Username", required = true) String username, @RequestParam(value = "Password", required = true) String password , ModelMap modelMap, HttpServletRequest httpServletRequest) {
         ModelAndView modelAndView = null;
         System.out.println("Name is " + username);
         System.out.println("Password is " + password);
         if (homeServiceImplement.checkAccount(username, password)) {
-            modelAndView = new ModelAndView("home");
-            User getUser = homeServiceImplement.getUser();
-            modelMap.addAttribute("username", username);
+                modelAndView = new ModelAndView("home");
+                User getUser = homeServiceImplement.getUser();
+                httpServletRequest.getSession().setAttribute("User", getUser);
         }
         else {
             modelAndView = new ModelAndView("login");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/main-page", method = RequestMethod.GET)
+    public ModelAndView check(HttpServletRequest httpServletRequest) {
+        ModelAndView modelAndView = null;
+        if (httpServletRequest.getSession().getAttribute("User") != null) {
+            modelAndView = new ModelAndView("home");
+        }
+        else {
+            modelAndView = new ModelAndView("home");
         }
         return modelAndView;
     }
@@ -49,6 +64,13 @@ public class Login_Controller {
     @RequestMapping(value = "/service-page", method = RequestMethod.GET)
     public ModelAndView service_page() {
         ModelAndView modelAndView = new ModelAndView("service");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logout(HttpServletRequest httpServletRequest) {
+        ModelAndView modelAndView = new ModelAndView("login");
+        httpServletRequest.getSession().invalidate();
         return modelAndView;
     }
 }

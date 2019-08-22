@@ -10,8 +10,7 @@ html {
     right: 0;
     height: 45px;
     position: fixed ;
-    border-bottom: #b8bdc1;;
-    border-bottom-style: solid;
+    border-bottom: #b8bdc1 1px solid;
     transition: all 0.3s;
     z-index: 1;
     padding: 9px 210px;

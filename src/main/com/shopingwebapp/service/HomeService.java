@@ -1,5 +1,6 @@
 package main.com.shopingwebapp.service;
 
+import main.com.entity.product.Product;
 import main.com.entity.user.User;
 import main.com.shopingwebapp.DAO.DAOHibernate;
 import main.com.shopingwebapp.DAO.DAOHibernate_Util;
@@ -18,6 +19,9 @@ public interface HomeService {
     final BeanFactory factory = new XmlBeanFactory(r);
     final DAOHibernate_Util daoHibernate_util = (DAOHibernate_Util) factory.getBean("daoHibernateUtil");
 
-
     public boolean checkAccount(String Username, String Password);
+
+    public List<Product> getList(String price_type, String sort_option);
+
+    public List<Product> searchList(String search_word, int typeid);
 }

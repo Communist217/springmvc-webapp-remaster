@@ -33,6 +33,35 @@ public class DAOHibernate_Util implements DAOHibernate {
     }
 
     @Override
+    public boolean Create_New_Account(String Create_Username, String Create_Password, String Fullname, String Address, String Phone, String Gender, String BirthDate, String Email) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = new User();
+        try {
+            //Transient Object, not determined by Hibernate
+            user.setUsername(Create_Username);
+            user.setPassword(Create_Password);
+            user.setFullname(Fullname);
+            user.setBirthdate(BirthDate);
+            user.setEmail(Email);
+            user.setPhonenumber(Phone);
+            user.setAddress(Address);
+            user.setGender(Gender);
+
+            session.persist(user);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        }
+        session.close();
+        return true;
+
+    }
+
+
+    @Override
     public User getAccount(String Username, String Password) {
         Session session = template.getSessionFactory().openSession();
 
@@ -231,8 +260,8 @@ public class DAOHibernate_Util implements DAOHibernate {
                 break;
 
             default:
-                /*Query query = session.createQuery("from Product");
-                list = query.getResultList();*/
+                Query query = template.getSessionFactory().openSession().createQuery("from Product");
+                list = query.getResultList();
                 break;
         }
 
@@ -254,18 +283,25 @@ public class DAOHibernate_Util implements DAOHibernate {
     }
 
     @Override
-    public List<Product> Product_Search(String search) {
+    public List<Product> Product_Search(String search, int typeid) {
         Session session = template.getSessionFactory().openSession();
+
         List<Product> list = new ArrayList<Product>();
-        Query query = session.createQuery("from Product where productname like  :productname ");
-        query.setParameter("productname", "%"+ search + "%");
+        Query query;
+        if (typeid == 0) {
+            query = session.createQuery("from Product where productname like :productname");
+            query.setParameter("productname", "%"+ search + "%");
+        }
+        else {
+            query = session.createQuery("from Product where productname like :productname and typeID=:typeid");
+            query.setParameter("productname", "%"+ search + "%");
+            query.setParameter("typeid", typeid);
+        }
 
         list = query.getResultList();
         session.close();
         return list;
     }
-
-
 
 }
 
@@ -295,10 +331,10 @@ class Main {
 //        System.out.println(isLiked);
         long Total_rating = daoHibernate_util.Get_Total_Rating(7);
         System.out.println(Total_rating);
-        /*Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
+        Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
         for (Iterator<Product> it = productIterator2; it.hasNext(); ) {
             Product product = it.next();
             System.out.println(product.getProductname() + " " + product.getPrice());
-        }*/
+        }
     }
 }
