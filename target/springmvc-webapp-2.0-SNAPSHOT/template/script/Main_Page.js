@@ -140,7 +140,7 @@ function getList(type, sort_option) {
                 /*console.log('Product name is ' + productName);*/
                 let eachProduct =
                 '<li>' +
-                    '<form id="access' + productID + '" method="get" action="main-page/product">' +
+                    '<form id="access' + productID + '" method="get" action="product">' +
                         '<input type="hidden" name="ID" value="' + productID + '">' +
                         '<div class="boundary_box">' +
                             '<a href="javascript:access(' + productID + ');" style="border: none; background: none; width: 100%;">' +

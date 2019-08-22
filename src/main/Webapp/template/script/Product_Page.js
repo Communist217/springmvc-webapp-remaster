@@ -59,7 +59,7 @@ $(function () {
 
 
     $('.Review-input').click(function () {
-       $('.Review-input').removeClass('Length_Caution');
+        $('.Review-input').removeClass('Length_Caution');
     });
 
     //Check if user has logged in or not

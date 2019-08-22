@@ -26,7 +26,6 @@
         </sql:query>
     </head>
     <body style="font-family: 'Calibri', sans-serif; font-size: 16px; ">
-        <input type="hidden" value="<%=session.getAttribute("UserID")%>">
         <!--Header of the page.-->
         <%@ include file="header.jsp" %>
 
