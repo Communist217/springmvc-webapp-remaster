@@ -1,0 +1,60 @@
+/*Order Management Page*/
+html {
+    scroll-behavior: smooth;
+}
+
+.bar {
+    background-color: #f9f9f9;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    position: fixed ;
+    border-bottom: #b8bdc1 1px solid;
+    transition: all 0.3s;
+    z-index: 1;
+    padding: 9px 210px;
+}
+
+.Home {
+    text-decoration: none;
+    padding: 9px 16px;
+    position: absolute;
+    color: black;
+}
+
+.Order_list {
+    top: 55px;
+    left: 200px;
+    right: 200px;
+    min-width: 720px;
+    position: absolute;
+    margin: auto;
+    max-width: 1119px;
+}
+
+.order {
+    background: #fff;
+    height: auto;
+    border: none;
+    border-right: 5px;
+    border-left: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.13);
+    padding: 15px;
+    margin-top: -7px;
+}
+
+.order_details {
+    background: #fff;
+    height: auto;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.13);
+    padding: 15px;
+    margin: -7px 5px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
