@@ -284,7 +284,7 @@
                                                             <input type="hidden" name="UserID" value="${User.getUserID()}" >
                                                             <input type="hidden" name="Name" id="Uid" value="${User.getFullname()}" >
                                                             <input type="hidden" name="PostID" value="${comment.PostID}">
-                                                            <a href="javascript:Create_Reply('${comment.PostID}', '${User.getUserID()}')" class="Reply_Sent" ></a>
+                                                            <a href="javascript:Create_Reply('${comment.PostID}', '${User.getUserID()}')" class="Reply_Sent" ><img style="margin: 1px -3px; max-width: 20px; height: auto;" src="template/IMG/reply-button.png"></a>
 
                                                                 <%--users replies list--%>
                                                             <sql:query dataSource="${shop_db}" var="reply">

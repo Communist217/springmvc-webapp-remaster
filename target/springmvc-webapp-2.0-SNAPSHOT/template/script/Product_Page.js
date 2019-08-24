@@ -35,7 +35,7 @@ $(function () {
             text: 'No account is logged in, you need to log in or sign up in order to initialize buying any kind of product!',
             button: 'OK!'
         }).then(function () {
-            location.replace('Login.jsp');
+            location.replace('login');
         });
     })
 });
@@ -51,7 +51,7 @@ function post_review() {
             console.log(json_post_review);
 
             $.ajax({
-                url: 'post-user-review',
+                url: 'postreview',
                 type: 'post',
                 data: json_post_review,
                 cache: false,
@@ -157,7 +157,7 @@ function Create_Reply(PostID) {
     if (getUserID !== -1) {
         if ((text_in_rep_from.match(letterNumber))) {
             $.ajax({
-                url: 'ReplyPost',
+                url: 'reply-post',
                 type: 'post',
                 processData: false,
                 data: json_reply,
@@ -223,7 +223,7 @@ function Like_ReviewPost(postID) {
     if(!($('.like_click' + postID).hasClass('like_disabled'))) {
         let like = {PostID: postID , UserID: getUserID};
         $.ajax({
-            url: 'LikeReview',
+            url: 'like-review',
             type: 'post',
             data: $.param(like),
             processData: false,
@@ -243,7 +243,7 @@ function Like_ReviewPost(postID) {
     else {
         let unlike = {PostID: postID , UserID: getUserID};
         $.ajax({
-            url: 'UnlikeReview',
+            url: 'unlike-review',
             type: 'post',
             data: $.param(unlike),
             processData: false,
