@@ -15,13 +15,19 @@ public interface ProductService {
     BeanFactory factory = new XmlBeanFactory(resource);
     final DAOHibernate_Util daoHibernate_util = (DAOHibernate_Util) factory.getBean("daoHibernateUtil");
 
-    public Product getProduct(int id);
+    Product getProduct(int id);
 
-    public HashMap<String,Long> Get_Overall_Rating_By_Type(int Pid);
+    HashMap<String, Long> Get_Overall_Rating_By_Type(int Pid);
 
-    public Long Get_Overall_Rating(int Pid);
+    Long Get_Overall_Rating(int Pid);
 
     void Post_Review(int userID, int productID, String reviewCmt, double rating);
 
-    public String getStatus(int ProductID, int UserID);
+    String getStatus(int ProductID, int UserID);
+
+    void Reply_Create(int UserID, int PostID, String Reply);
+
+    long Like_Create(int UserID, int PostID);
+
+    long Unlike_Create(int UserID, int PostID);
 }

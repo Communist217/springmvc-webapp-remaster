@@ -62,5 +62,37 @@ public class ProductServiceImplement implements ProductService {
         }
         return status;
     }
+
+    @Override
+    public void Reply_Create(int UserID, int PostID, String Reply) {
+        daoHibernate_util.Reply_Create(UserID, PostID, Reply);
+    }
+
+    @Override
+    public long Like_Create(int UserID, int PostID) {
+        long like_count = 0;
+        if (daoHibernate_util.Like_Create(UserID, PostID)) {
+            System.out.println("Like Success");
+            like_count += daoHibernate_util.Get_Like_Count(Integer.valueOf(PostID));
+        }
+        else {
+            System.out.println("Like Fail");
+        }
+        return like_count;
+    }
+
+    @Override
+    public long Unlike_Create(int UserID, int PostID) {
+        long like_count = 0;
+        if (daoHibernate_util.Remove_Like(UserID, PostID)) {
+            System.out.println("Like Success");
+            like_count += daoHibernate_util.Get_Like_Count(Integer.valueOf(PostID));
+        }
+        else {
+            System.out.println("Like Fail");
+        }
+        return like_count;
+    }
+
 }
 

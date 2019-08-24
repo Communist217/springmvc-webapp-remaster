@@ -38,15 +38,18 @@ public class Product_Controller {
         return "product";
     }
 
-    @RequestMapping(value = "/post-user-review", method = RequestMethod.POST)
-    public void post_user_review(HttpServletRequest request) throws UnsupportedEncodingException {
+    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
+    public void post_user_review(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         int UserID = Integer.valueOf(request.getParameter("Uid"));
         int ProductID = Integer.valueOf(request.getParameter("Pid"));
         String ReviewCmt = request.getParameter("ReviewCmt");
         double rating = Double.valueOf(request.getParameter("RatingVal"));
-        System.out.println(UserID + ProductID + ReviewCmt + rating);
+        System.out.println(UserID + " " + ProductID + " " + ReviewCmt + " " + rating);
         productService.Post_Review(UserID, ProductID, ReviewCmt, rating);
+
+        PrintWriter out = response.getWriter();
+        out.print("Post Completed");
     }
 
     @RequestMapping(value = "/add-to-cart", method = RequestMethod.POST)
@@ -61,4 +64,38 @@ public class Product_Controller {
         JsonElement element = gson.toJsonTree(status);
         writer.write(element.toString());
     }
+
+    @RequestMapping(value = "/reply-post", method = RequestMethod.POST)
+    public void reply_post(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        int UserID = Integer.valueOf(request.getParameter("UserID"));
+        int PostID = Integer.valueOf(request.getParameter("PostID"));
+        String Reply = request.getParameter("ReplyCmt");
+        productService.Reply_Create(UserID, PostID, Reply);
+        PrintWriter out = response.getWriter();
+        out.print("Eeplied to " + PostID);
+    }
+
+    @RequestMapping(value = "/like-review", method = RequestMethod.POST)
+    public void like_review(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String UserID = request.getParameter("UserID");
+        String PostID = request.getParameter("PostID");
+        System.out.println("UserID: " + UserID + " PostID: " + PostID);
+        PrintWriter out = response.getWriter();
+        long get_like_count = productService.Like_Create(Integer.valueOf(UserID), Integer.valueOf(PostID));
+        out.print(get_like_count);
+        out.close();
+    }
+
+    @RequestMapping(value = "/unlike-review", method = RequestMethod.POST)
+    public void unlike_review(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String UserID = request.getParameter("UserID");
+        String PostID = request.getParameter("PostID");
+        System.out.println("UserID: " + UserID + " PostID: " + PostID);
+        PrintWriter out = response.getWriter();
+        long get_like_count = productService.Unlike_Create(Integer.valueOf(UserID), Integer.valueOf(PostID));
+        out.print(get_like_count);
+        out.close();
+    }
+
 }
