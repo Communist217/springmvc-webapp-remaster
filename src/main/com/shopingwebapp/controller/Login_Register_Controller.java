@@ -21,9 +21,14 @@ public class Login_Register_Controller {
     private HomeServiceImplement homeServiceImplement;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(Model model) {
-        ModelAndView modelAndView = new ModelAndView("login");
-        model.addAttribute("User", new User());
+    public ModelAndView login(ModelAndView modelAndView, Model model, HttpServletRequest httpServletRequest) {
+        if (httpServletRequest.getSession().getAttribute("User") != null) {
+            modelAndView = new ModelAndView("home");
+        }
+        else {
+            model.addAttribute("User", new User());
+            modelAndView = new ModelAndView("login");
+        }
         return modelAndView;
     }
 

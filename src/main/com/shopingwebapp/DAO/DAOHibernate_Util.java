@@ -1,6 +1,7 @@
 package main.com.shopingwebapp.DAO;
 
 import main.com.entity.like.Like;
+import main.com.entity.order.Preorder;
 import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
 import main.com.entity.reply.Reply;
@@ -74,8 +75,7 @@ public class DAOHibernate_Util implements DAOHibernate {
             if (query.getResultList().size() == 0) {
                 System.out.println(query.getResultList());
                 existence = false;
-            }
-            else {
+            } else {
                 existence = true;
                 List<User> userList = query.getResultList();
                 System.out.println(query.getResultList());
@@ -93,17 +93,25 @@ public class DAOHibernate_Util implements DAOHibernate {
 
     @Override
     public void Review_Create(int UserID, int ProductID, String review_cmt, double rating) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
 
-        //A new review is created,
-        Review user_review = new Review();
-        //user_review is Transient
-        user_review.setUserID(UserID);
-        user_review.setProductID(ProductID);
-        user_review.setReview_comment(review_cmt);
-        user_review.setRating_value(rating);
+        //A new review is created
+        try {
+            Review user_review = new Review();
+            //user_review is Transient
+            user_review.setUserID(UserID);
+            user_review.setProductID(ProductID);
+            user_review.setReview_comment(review_cmt);
+            user_review.setRating_value(rating);
 
-        //user_review is persistence
-        template.save(user_review);
+            //user_review is persistence
+            session.persist(user_review);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+        session.close();
     }
 
     @Override
@@ -156,8 +164,8 @@ public class DAOHibernate_Util implements DAOHibernate {
             //Create delete query
             Query query = session.createQuery("Delete from Like where userID = :u and postID =:p");
             //Set Parameter
-            query.setParameter("p" , postID);
-            query.setParameter("u" , userID);
+            query.setParameter("p", postID);
+            query.setParameter("u", userID);
             query.executeUpdate();
             transaction.commit();
         } catch (Exception e) {
@@ -176,7 +184,7 @@ public class DAOHibernate_Util implements DAOHibernate {
         long count = 0;
         Review review = template.get(Review.class, postID);
 
-        Iterator<Like> allLikes= review.getLikes().iterator();
+        Iterator<Like> allLikes = review.getLikes().iterator();
         while (allLikes.hasNext()) {
             Like like = allLikes.next();
             System.out.println("UID: " + like.getUserID() + " LikeID: " + like.getLikeID() + " PostID: " + like.getPostID());
@@ -207,7 +215,7 @@ public class DAOHibernate_Util implements DAOHibernate {
 
         //Rating type for overall rating bar
         String[] type = {"Positive", "Mixed", "Negative"};
-        HashMap<String,Long> avarage_rating_number = new LinkedHashMap<>();
+        HashMap<String, Long> avarage_rating_number = new LinkedHashMap<>();
         List<Long> positive_rating = (List<Long>) template.find("select count(rating_value) from Review where rating_value >= 3.5 and rating_value <= 5 and productID = " + ProductID);
         avarage_rating_number.put(type[0], positive_rating.get(0));
         List<Long> mixed_rating = (List<Long>) template.find("select count(rating_value) from Review where rating_value >= 2.5 and rating_value <= 3 and productID = " + ProductID);
@@ -290,11 +298,10 @@ public class DAOHibernate_Util implements DAOHibernate {
         Query query;
         if (typeid == 0) {
             query = session.createQuery("from Product where productname like :productname");
-            query.setParameter("productname", "%"+ search + "%");
-        }
-        else {
+            query.setParameter("productname", "%" + search + "%");
+        } else {
             query = session.createQuery("from Product where productname like :productname and typeID=:typeid");
-            query.setParameter("productname", "%"+ search + "%");
+            query.setParameter("productname", "%" + search + "%");
             query.setParameter("typeid", typeid);
         }
 
@@ -303,8 +310,54 @@ public class DAOHibernate_Util implements DAOHibernate {
         return list;
     }
 
-}
+    public int ProductQuantity_In_Cart(int ProductID, int UserID) {
+        int quantity = 0;
+        Query query = template.getSessionFactory().openSession().createQuery("select quantity from Preorder where productID=:ProductID and userID=:UserID");
+        query.setParameter("ProductID", ProductID);
+        query.setParameter("UserID", UserID);
+        List<Integer> getquantity_in_cart= query.getResultList();
+        if(getquantity_in_cart.size() != 0) {
+            quantity += getquantity_in_cart.get(0);
+        }
+        return quantity;
+    }
 
+    public void Preorder_Product(int ProductID, int UserID) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Preorder preorder = new Preorder();
+            preorder.setProductID(ProductID);
+            preorder.setUserID(UserID);
+            preorder.setQuantity(1);
+            session.persist(preorder);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            System.out.println("Fail to preorder");
+        }
+
+        session.close();
+    }
+
+    public void Add_More_To_Quantity(int ProductID, int UserID) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("update Preorder set quantity = quantity + 1 where productID=:ProductID and userID=:UserID");
+            query.setParameter("ProductID", ProductID);
+            query.setParameter("UserID", UserID);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+
+
+    }
+}
 class Main {
     public static void main(String[] args) {
         Resource r = new ClassPathResource("resources/applicationContent.xml");

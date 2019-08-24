@@ -83,6 +83,8 @@ html {
     height: 40px;
     font-size: 16px;
     transition: all 0.5s;
+    text-align: center;
+    padding: 6px;
 }
 
 .Product_review_button:hover {
@@ -123,7 +125,7 @@ html {
 }
 
 .Reply_Sent {
-    background: url("../Style/IMG/reply-button.png") no-repeat;
+    background: url("/template/IMG/reply-button.png") no-repeat;
     background-size: contain;
     width: 20px;
     height: 20px;

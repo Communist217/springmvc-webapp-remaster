@@ -22,41 +22,6 @@ $(function () {
         document.getElementById('caution').innerHTML = '80 words minimum.  ' + '(' + count + ' word(s))';
     });
 
-    //Send request to PostReview to process review post from user
-    $('.Product_review_button').click(function (e) {
-        let word = document.getElementById('Product_opinion').value;
-        let count = word.toString().length;
-
-        if (count >= 80) {
-            if ((word.match(letterNumber))) {
-                e.preventDefault();
-                let json_post_review = $('.Create_Review').serialize();
-                console.log(json_post_review);
-
-                $.ajax({
-                    url: 'PostReview',
-                    type: 'post',
-                    processData: false,
-                    data: json_post_review,
-                    cache: false,
-                    success: function () {
-                        document.getElementById('caution').innerHTML = "*Your review has been added.";
-                        $('.Product_review_button').fadeOut(100);
-                    },
-                    error: function () {
-
-                    }
-                });
-            }
-            else {
-                document.getElementById('caution').innerHTML = "*Alphabets accepted only.";
-            }
-        }
-        else {
-            $('.Review-input').addClass('Length_Caution');
-        }
-    });
-
 
     $('.Review-input').click(function () {
         $('.Review-input').removeClass('Length_Caution');
@@ -75,10 +40,43 @@ $(function () {
     })
 });
 
+//Send request to PostReview to process review post from user
+function post_review() {
+    let word = document.getElementById('Product_opinion').value;
+    let count = word.toString().length;
+
+    if (count >= 80) {
+        if ((word.match(letterNumber))) {
+            let json_post_review = $('.Create_Review').serialize();
+            console.log(json_post_review);
+
+            $.ajax({
+                url: 'post-user-review',
+                type: 'post',
+                data: json_post_review,
+                cache: false,
+                success: function () {
+                    document.getElementById('caution').innerHTML = "*Your review has been added.";
+                    $('.Product_review_button').fadeOut(100);
+                },
+                error: function () {
+
+                }
+            });
+        }
+        else {
+            document.getElementById('caution').innerHTML = "*Alphabets accepted only.";
+        }
+    }
+    else {
+        $('.Review-input').addClass('Length_Caution');
+    }
+}
+
 //Send request to process preorder
 function Add_To_Cart(ProductID) {
     $.ajax({
-        url: 'Cart',
+        url: 'add-to-cart',
         type: 'post',
         dataType: 'json',
         data: { UserID : getUserID,
@@ -113,7 +111,7 @@ function No_Account_Notify() {
         text: 'No account is logged in, you need to log in or sign up in order to access your Cart!',
         button: 'OK!'
     }).then(function () {
-        location.replace('Login.jsp');
+        location.replace('login');
     });
 }
 

@@ -130,4 +130,17 @@
         <property name="birthdate" column="birthdate" type="string" not-null="true"/>
         <property name="email" column="email" type="string" not-null="true"/>
     </class>
+
+    <class name="main.com.entity.order.Preorder">
+        <meta attribute="class-description">
+            This class contains information about preordered products.
+        </meta>
+        <id name="preorderID" type="int" column="PreorderID">
+            <generator class="identity"/>
+        </id>
+
+        <property name="productID" column="ProductID" type="int" not-null="true"/>
+        <property name="userID" column="MemberID" type="int" not-null="true"/>
+        <property name="quantity" column="Quantity" type="int" not-null="true"/>
+    </class>
 </hibernate-mapping>

@@ -1,29 +1,27 @@
 package main.com.shopingwebapp.service;
 
 import main.com.entity.product.Product;
-import main.com.entity.user.User;
-import main.com.shopingwebapp.DAO.DAOHibernate;
 import main.com.shopingwebapp.DAO.DAOHibernate_Util;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface HomeService {
+public interface ProductService {
     final Resource resource = new ClassPathResource("applicationContent.xml");
     BeanFactory factory = new XmlBeanFactory(resource);
     final DAOHibernate_Util daoHibernate_util = (DAOHibernate_Util) factory.getBean("daoHibernateUtil");
 
-    public boolean checkAccount(String Username, String Password);
+    public Product getProduct(int id);
 
-    public List<Product> getList(String price_type, String sort_option);
+    public HashMap<String,Long> Get_Overall_Rating_By_Type(int Pid);
 
-    public List<Product> searchList(String search_word, int typeid);
+    public Long Get_Overall_Rating(int Pid);
 
+    void Post_Review(int userID, int productID, String reviewCmt, double rating);
+
+    public String getStatus(int ProductID, int UserID);
 }

@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring-mvc-remaster" />
         <module name="springmvcremaster" />
-        <module name="springmvc-webapp-remaster" />
         <module name="springmvc-webapp" />
+        <module name="springmvc-webapp-remaster" />
+        <module name="spring-mvc-remaster" />
       </profile>
     </annotationProcessing>
   </component>

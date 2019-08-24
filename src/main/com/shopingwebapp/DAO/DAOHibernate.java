@@ -46,4 +46,10 @@ public interface DAOHibernate {
     public List<Product> get_Product_List(String type, String sort_option);
 
     public List<Product> Product_Search(String search, int typeid);
+
+    public int ProductQuantity_In_Cart(int ProductID, int UserID);
+
+    public void Preorder_Product(int ProductID, int UserID);
+
+    public void Add_More_To_Quantity(int ProductID, int UserID);
 }

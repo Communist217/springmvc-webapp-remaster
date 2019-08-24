@@ -102,7 +102,7 @@
 
                             <%--Product Price--%>
                             <h3>
-                                <strong style="color: #e10c00;">${Product_Data.getPrice()}₫</strong>
+                                <strong style="color: #e10c00;"><fmt:formatNumber type="number" maxFractionDigits="">${Product_Data.getPrice()}</fmt:formatNumber>₫</strong>
                             </h3>
                             <%--Product Description--%>
                             <h5><strong>Description:</strong></h5>
@@ -216,7 +216,7 @@
                                             <input type="hidden" name="Fullname" value="${User.getFullname()}">
                                             <input id="Userid" type="hidden" name="Uid" value="<c:out value="${User.getUserID()}">-1</c:out>">
                                             <input type="hidden" name="RatingVal" id="Product_rating">
-                                            <button type="button" class="Product_review_button">Post Review</button>
+                                            <a href="javascript:post_review();" class="Product_review_button" style="text-decoration: none;"><p>Post Review</p></a>
                                             <strong style="margin-top: 5px;" id="caution"></strong>
                                         </div>
                                     </form>
@@ -235,7 +235,7 @@
                                                 <div class="Reviews">
                                                     <p class="Reviews_Comments"><c:out value="${comment.ReviewComment}">N/A</c:out></p>
                                                     <a href="javascript:Reply_Button_Toggle('${comment.PostID}');" style="text-decoration: none; color: #007bff;">
-                                                        <img id="Reply-button" src="/template/IMG/reply-icon.png" style="max-width: 22px; max-height: 22px;" title="Reply"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
+                                                        <img id="Reply-button" src="template/IMG/reply-icon.png" style="max-width: 22px; max-height: 22px;" title="Reply"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
                                                     </a>
                                                     <form class="Like_Submit" style="display: inline;">
                                                         <input type="hidden" name="UserId" value="${User.getUserID()}">
@@ -257,12 +257,12 @@
                                                             <c:if test="${Like_count.rowCount > 0}">
                                                                 <c:if test="${User_isLike.rowCount == 1}">
                                                                     <a class="like_click<c:out value="${comment.PostID}"/> like_disabled" href="javascript:Like_ReviewPost('${comment.PostID}');" style="margin-left: 8px; text-decoration: none;">
-                                                                        <img id="Like<c:out value="${comment.PostID}"/>" src="/template/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -5px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
+                                                                        <img id="Like<c:out value="${comment.PostID}"/>" src="template/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -5px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
                                                                     </a>
                                                                 </c:if>
                                                                 <c:if test="${User_isLike.rowCount == 0}">
                                                                     <a class="like_click<c:out value="${comment.PostID}"/>" href="javascript:Like_ReviewPost('${comment.PostID}');" style="margin-left: 8px; text-decoration: none;">
-                                                                        <img id="Like<c:out value="${comment.PostID}"/>" src="Style/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -5px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
+                                                                        <img id="Like<c:out value="${comment.PostID}"/>" src="template/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -5px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
                                                                     </a>
                                                                 </c:if>
                                                                 <c:forEach var="like_val" items="${Like_count.rows}">
@@ -271,7 +271,7 @@
                                                             </c:if>
                                                             <c:if test="${Like_count.rowCount == 0}">
                                                                 <a class="like_click<c:out value="${comment.PostID}"/>" href="javascript:Like_ReviewPost('${comment.PostID}', '${User.getUserID()}');" style="margin-left: 8px; text-decoration: none;">
-                                                                    <img id="Like<c:out value="${comment.PostID}"/>" src="/template/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -3px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
+                                                                    <img id="Like<c:out value="${comment.PostID}"/>" src="template/IMG/like-button.png" style="max-width: 22px; max-height: 22px; margin-top: -3px;" title="Like" alt="#"> <%--(<p style="display: inline;" id="CountReply<c:out value="${comment.PostID}"/>">)</p>--%>
                                                                 </a>
                                                                 (<p id="Like_Count<c:out value="${comment.PostID}"/>" style="display: inline;" >0</p>)
                                                             </c:if>
