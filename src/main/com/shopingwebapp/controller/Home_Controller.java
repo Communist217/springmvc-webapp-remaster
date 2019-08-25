@@ -31,6 +31,16 @@ public class Home_Controller {
         new Gson().toJson(productListbyType, response.getWriter());
     }
 
+    @RequestMapping (value = "/cart", method = RequestMethod.GET)
+    public String cart_access() {
+        return "cart";
+    }
+
+    @RequestMapping (value = "/cart", method = RequestMethod.POST)
+    public String get_back_to_cart() {
+        return "cart";
+    }
+
     @RequestMapping (value = "get_product_search",  method = RequestMethod.GET)
     public void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String search = request.getParameter("Search_result");

@@ -34,7 +34,7 @@ public interface DAOHibernate {
     public long Get_Total_Rating(int ProductID);
 
     //Get rating percentage for progress bar
-    public HashMap<String,Long> Get_Total_Rating_by_Type(int ProductID);
+    public HashMap<String, Long> Get_Total_Rating_by_Type(int ProductID);
 
     //Product access by user using id
     public Product product_access(int ProductID);
@@ -52,4 +52,12 @@ public interface DAOHibernate {
     public void Preorder_Product(int ProductID, int UserID);
 
     public void Add_More_To_Quantity(int ProductID, int UserID);
+
+    public void Remove_Preorder(int UserID);
+
+    public void InStock_Decrease(int ProductID, int Quantity);
+
+    public boolean Complete_Order(int OrderID, String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod);
+
+    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price,int Quantity);
 }

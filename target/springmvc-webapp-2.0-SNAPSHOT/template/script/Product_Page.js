@@ -51,12 +51,13 @@ function post_review() {
             console.log(json_post_review);
 
             $.ajax({
-                url: 'postreview',
+                url: 'post-review',
                 type: 'post',
                 data: json_post_review,
                 cache: false,
-                success: function () {
-                    document.getElementById('caution').innerHTML = "*Your review has been added.";
+                success: function (response_data) {
+                    console.log(response_data);
+                    document.getElementById('caution').innerHTML = response_data;
                     $('.Product_review_button').fadeOut(100);
                 },
                 error: function () {
@@ -117,12 +118,6 @@ function No_Account_Notify() {
 
 //Expand Replies
 function Reply_Button_Toggle(PostID) {
-    /*let Reply_unexpanded = "Style/IMG/reply-icon.png";
-    let Reply_expanded = "https://image.flaticon.com/icons/png/128/1381/1381635.png";
-    document.getElementById('Reply-button');
-
-    document.getElementById('Reply-button').src = (document.getElementById('Reply-button').src === Reply_unexpanded)? Reply_expanded : Reply_unexpanded;
-    */
     $('#Reply' + PostID).toggle('500ms');
 }
 

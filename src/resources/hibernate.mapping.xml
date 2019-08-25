@@ -143,4 +143,13 @@
         <property name="userID" column="MemberID" type="int" not-null="true"/>
         <property name="quantity" column="Quantity" type="int" not-null="true"/>
     </class>
+
+    <class name="main.com.entity.order.OrderDetails">
+        <meta attribute="class-description">
+            This class contains information about orderdetails .
+        </meta>
+        <id name = "orderID" type = "int" column = "orderID">
+            <generator class="native"/>
+        </id>
+    </class>
 </hibernate-mapping>

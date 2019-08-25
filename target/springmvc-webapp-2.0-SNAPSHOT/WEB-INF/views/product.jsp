@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/bootstrap-4.1.3-dist/css/bootstrap.css'/>">
         <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/star-rating-svg.css'/>">
         <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/Sweet/sweetalert2.css'/>">
+        <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/Footer.css'/>" />
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <%--Query--%>
         <sql:setDataSource var="shop_db" driver = "com.mysql.cj.jdbc.Driver"
@@ -28,18 +29,6 @@
                            user = "root" password = "minhngoc61021"/>
         <c:set var="ProductID" value="${Product_Data.getProductID()}"
                scope="request" />
-        <sql:query dataSource="${shop_db}" var="Product_Description">
-            Select description
-            from products
-            where productid = ?;
-            <sql:param value="${Product_Data.getProductID()}"/>
-        </sql:query>
-        <sql:query dataSource="${shop_db}" var="Product_Warranty">
-            Select warranty
-            from products
-            where productid = ?;
-            <sql:param value="${Product_Data.getProductID()}"/>
-        </sql:query>
         <sql:query dataSource="${shop_db}" var="Review">
             Select re.PostID, re.RatingValue, re.ReviewComment, m.MemberID, m.Fullname
             from review re inner join members m
@@ -58,7 +47,7 @@
         <input type="hidden" class="UserID" value="<c:out value="${User.getUserID()}"/>">
         <!--Header of the page.-->
         <%@ include file="header.jsp" %>
-
+        <%@ include file="footer.jsp" %>
         <%--Product Content--%>
         <section class="Product-Content-Area">
             <div id="Content-group">
@@ -119,7 +108,7 @@
                             <section class="Product_button">
                                 <c:if test="${Product_Data.getStock() > 0}">
                                     <c:if test="${not empty User.getUserID()}">
-                                        <a href="javascript:Add_To_Cart(${Product_Data.getProductID()});" class="Product_buy_button_succeeded" id="success" style="text-decoration: none;">Add to Cart</a>
+                                        <a href="javascript:Add_To_Cart(${Product_Data.getProductID()});" class="Product_buy_button_succeeded" id="success" style="text-decoration: none;">Add To Cart</a>
                                     </c:if>
                                     <c:if test="${empty User.getUserID()}">
                                         <a href="javascript:void(0)" class="Product_buy_button_flopped" id="flopped" style="text-decoration: none;">Add to Cart</a>
@@ -284,7 +273,7 @@
                                                             <input type="hidden" name="UserID" value="${User.getUserID()}" >
                                                             <input type="hidden" name="Name" id="Uid" value="${User.getFullname()}" >
                                                             <input type="hidden" name="PostID" value="${comment.PostID}">
-                                                            <a href="javascript:Create_Reply('${comment.PostID}', '${User.getUserID()}')" class="Reply_Sent" ></a>
+                                                            <a href="javascript:Create_Reply('${comment.PostID}', '${User.getUserID()}')" class="Reply_Sent" ><img style="margin: 1px -3px; max-width: 20px; height: auto;" src="template/IMG/reply-button.png"></a>
 
                                                                 <%--users replies list--%>
                                                             <sql:query dataSource="${shop_db}" var="reply">

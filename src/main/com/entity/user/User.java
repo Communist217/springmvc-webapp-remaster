@@ -1,6 +1,8 @@
 package main.com.entity.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int UserID;
     private String Username;
     private String Password;

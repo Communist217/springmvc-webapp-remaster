@@ -38,7 +38,7 @@ public class Product_Controller {
         return "product";
     }
 
-    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
+    @RequestMapping(value = "/post-review", method = RequestMethod.POST)
     public void post_user_review(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         int UserID = Integer.valueOf(request.getParameter("Uid"));
@@ -49,20 +49,22 @@ public class Product_Controller {
         productService.Post_Review(UserID, ProductID, ReviewCmt, rating);
 
         PrintWriter out = response.getWriter();
-        out.print("Post Completed");
+        out.write("*Your review has been added.");
+        out.close();
     }
 
     @RequestMapping(value = "/add-to-cart", method = RequestMethod.POST)
     public void add_to_cart(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        PrintWriter writer = response.getWriter();
+        PrintWriter out = response.getWriter();
         //int UserID = Integer.valueOf(session.getAttribute("UserID").toString());
         int UserID = Integer.valueOf(request.getParameter("UserID"));
         int ProductID = Integer.valueOf(request.getParameter("ProductID"));
         Gson gson = new Gson();
         String status = productService.getStatus(ProductID, UserID);
         JsonElement element = gson.toJsonTree(status);
-        writer.write(element.toString());
+        out.write(element.toString());
+        out.close();
     }
 
     @RequestMapping(value = "/reply-post", method = RequestMethod.POST)
@@ -73,7 +75,8 @@ public class Product_Controller {
         String Reply = request.getParameter("ReplyCmt");
         productService.Reply_Create(UserID, PostID, Reply);
         PrintWriter out = response.getWriter();
-        out.print("Eeplied to " + PostID);
+        out.write("Eeplied to " + PostID);
+        out.close();
     }
 
     @RequestMapping(value = "/like-review", method = RequestMethod.POST)

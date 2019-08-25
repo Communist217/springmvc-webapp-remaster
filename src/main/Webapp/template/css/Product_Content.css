@@ -66,7 +66,7 @@ html {
     width: 95px;
     height: 40px;
     text-align: center;
-    padding-top: 6px;
+    padding: 7px 0px;
     font-size: 16px;
     transition: all 0.5s;
 }
@@ -84,7 +84,7 @@ html {
     font-size: 16px;
     transition: all 0.5s;
     text-align: center;
-    padding: 6px;
+    padding: 7px 0px;
 }
 
 .Product_review_button:hover {
@@ -110,7 +110,7 @@ html {
     overflow: scroll;
     height: fit-content;
     max-height: 400px;
-    margin: 10px 0px;
+    margin: 10px 0px 70px;
 }
 
 .Reviews {
@@ -201,6 +201,7 @@ html {
     padding: 10px;
     background: #e9ecef;
 }
+
 /*For mobile devices*/
 @media only screen and (max-width: 1300px) {
 
@@ -241,5 +242,15 @@ html {
         text-align: center;
     }
 
-}
+    .Product_button {
+        text-align: center;
+        display: block;
+        float: none;
+    }
 
+    .Out_of_stock {
+        text-align: center;
+        margin: 0;
+        float: none;
+    }
+}

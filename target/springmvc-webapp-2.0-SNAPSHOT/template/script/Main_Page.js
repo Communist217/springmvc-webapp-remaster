@@ -193,7 +193,7 @@ function Add_To_Cart(ProductID) {
     console.log('Get ' + getUserID);
     if (getUserID != -1) {
         $.ajax({
-            url: 'Cart',
+            url: 'add-to-cart',
             type: 'post',
             dataType: 'json',
             data: { UserID : getUserID,

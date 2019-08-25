@@ -1,6 +1,7 @@
 package main.com.shopingwebapp.DAO;
 
 import main.com.entity.like.Like;
+import main.com.entity.order.Order;
 import main.com.entity.order.Preorder;
 import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
@@ -355,8 +356,67 @@ public class DAOHibernate_Util implements DAOHibernate {
             transaction.rollback();
         }
 
-
+        session.close();
     }
+
+    @Override
+    public void Remove_Preorder(int UserID) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("delete from Preorder where userID=:UserID");
+            query.setParameter("UserID", UserID);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+
+        session.close();
+    }
+    public void InStock_Decrease(int ProductID, int Quantity) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("update Product set stock = stock - :quantity where productID=:ProductID");
+            query.setParameter("quantity", Quantity);
+            query.setParameter("ProductID", ProductID);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+
+        session.close();
+    }
+
+    @Override
+    public boolean Complete_Order(int OrderID, String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Order newOrder = new Order(OrderID, orderDate, null, requiredDate, UserID, note, comments, status, payment, paymentMethod);
+            session.persist(newOrder);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price, int Quantity) {
+
+        return true;
+    }
+
 }
 class Main {
     public static void main(String[] args) {
@@ -374,6 +434,7 @@ class Main {
             Product product = it.next();
             System.out.println(product.getProductname() + " " + product.getPrice());
         }
+        daoHibernate_util.Remove_Preorder(11);
         HashMap<String, Long> productHashMap = daoHibernate_util.Get_Total_Rating_by_Type(1);
         for (Map.Entry product: productHashMap.entrySet()) {
             System.out.println(product.getKey() + " " + product.getValue());
@@ -384,6 +445,7 @@ class Main {
 //        System.out.println(isLiked);
         long Total_rating = daoHibernate_util.Get_Total_Rating(7);
         System.out.println(Total_rating);
+
         Iterator<Product> productIterator2 = daoHibernate_util.get_Product_List("Mid-Range", "Price: High to Low").iterator();
         for (Iterator<Product> it = productIterator2; it.hasNext(); ) {
             Product product = it.next();

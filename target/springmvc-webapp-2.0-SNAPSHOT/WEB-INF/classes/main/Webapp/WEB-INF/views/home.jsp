@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/SpinnyWheel_Loading.css"/>'/>
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/bootstrap-4.1.3-dist/css/bootstrap.css"/>'/>
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/Sweet/sweetalert2.css"/>'/>
+        <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/Footer.css'/>" />
         <sql:setDataSource var="shop_db" driver = "com.mysql.cj.jdbc.Driver"
                            url = "jdbc:mysql://localhost:3306/onlineshopdatabase?useSSL=false"
                            user = "root" password = "minhngoc61021"/>
@@ -28,7 +29,7 @@
     <body style="font-family: 'Calibri', sans-serif; font-size: 16px; ">
         <!--Header of the page.-->
         <%@ include file="header.jsp" %>
-
+        <%@ include file="footer.jsp" %>
         <input type="hidden" value="<c:out value="${User.getUserID()}">-1</c:out>" id="Userid">
         <%--All Product--%>
         <section class="Content-area" onload="TypeValue()">

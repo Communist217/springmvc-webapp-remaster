@@ -83,7 +83,7 @@ function CF_Order(OrderID){
 }
 
 //Remove all products from orders
-function Abort_Order(){
+function Abort_Order(UserID){
     swalWithBootstrapButtons.fire({
         title: '<strong style="font-family: Calibri, sans-serif; color: #f27474;">Are you sure?</strong>',
         text: 'Cautious, all products will no longer be in your Cart!',
@@ -98,7 +98,17 @@ function Abort_Order(){
                 'All products has been removed from your Cart.',
                 'success'
             ).then(function () {
-                document.querySelector('#abort_order').submit();
+                $.ajax({
+                    url: 'abort-order',
+                    method: 'post',
+                    data_type: 'json',
+                    data: {UserID : JSON.stringify(UserID)},
+                    success: function (response) {
+                        alert(response);
+                    }
+                }).then(function () {
+                    location.reload();
+                });
             });
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {

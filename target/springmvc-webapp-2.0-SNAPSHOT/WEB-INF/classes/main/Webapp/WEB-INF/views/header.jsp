@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!--Header-->
 <header class="Top-area">
     <div class="navigation_bar">
         <a href="main-page">
@@ -118,7 +119,7 @@
         </div>
         <c:if test="${not empty User.getUserID()}">
             <div style="float: right;">
-                <a href="Cart_Page">
+                <a href="cart">
                     <span><img style="height: 20px; width: 20px; margin-top: -3px;" src="template/IMG/shopping-cart.png"></span>
                     <span>Cart</span>
                 </a>
@@ -134,4 +135,6 @@
         </c:if>
     </div>
 </header>
+
+
 

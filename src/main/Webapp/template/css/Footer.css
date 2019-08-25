@@ -1,0 +1,12 @@
+footer.page-footer {
+    bottom: 0;
+    border-top: #b8bdc1 1px solid;
+}
+
+.font-small {
+    font-size: 16px;
+}
+
+.footer-color {
+    background-color: #f9f9f9 !important;
+}

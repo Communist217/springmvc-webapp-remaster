@@ -1,6 +1,8 @@
 package main.com.entity.order;
 
-public class Preorder {
+import java.io.Serializable;
+
+public class Preorder implements Serializable {
     private int PreorderID;
     private int UserID;
     private int ProductID;
