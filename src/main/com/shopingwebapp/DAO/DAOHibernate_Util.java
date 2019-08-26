@@ -405,6 +405,8 @@ public class DAOHibernate_Util implements DAOHibernate {
             Order newOrder = new Order(orderDate, null, requiredDate, UserID, note, comments, status, payment, paymentMethod);
             session.persist(newOrder);
             transaction.commit();
+            System.out.println(" Order ID is " + newOrder.getOrderID());
+            setOrderID(newOrder.getOrderID());
         } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
@@ -414,13 +416,17 @@ public class DAOHibernate_Util implements DAOHibernate {
         return true;
     }
 
-    public int getID(int ID){
+    private void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
 
+    public int getOrderID(){
+        return orderID;
     }
 
     @Override
-    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price, int Quantity) {
-
+    public boolean Set_Order_Details(int ProductID, Long Price, int Quantity) {
+        System.out.println(getOrderID());
         return true;
     }
 

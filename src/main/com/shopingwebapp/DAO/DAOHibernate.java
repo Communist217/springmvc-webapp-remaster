@@ -60,5 +60,5 @@ public interface DAOHibernate {
 
     public boolean Complete_Order(String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod);
 
-    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price, int Quantity);
+    public boolean Set_Order_Details(int ProductID, Long Price, int Quantity);
 }
