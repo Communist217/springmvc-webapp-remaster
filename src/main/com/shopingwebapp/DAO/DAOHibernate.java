@@ -4,6 +4,7 @@ import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
 import main.com.entity.user.User;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public interface DAOHibernate {
 
     public void InStock_Decrease(int ProductID, int Quantity);
 
-    public boolean Complete_Order(int OrderID, String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod);
+    public boolean Complete_Order(String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod);
 
-    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price,int Quantity);
+    public boolean Set_Order_Details(int OrderID, int ProductID, Long Price, int Quantity);
 }

@@ -24,11 +24,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
+import java.sql.Timestamp;
 import java.util.*;
 @Repository(value = "daoHibernateUtil")
 public class DAOHibernate_Util implements DAOHibernate {
     private HibernateTemplate template;
     private boolean existence;
+    private int orderID;
 
     public void setTemplate(HibernateTemplate template) {
         this.template = template;
@@ -395,20 +397,25 @@ public class DAOHibernate_Util implements DAOHibernate {
     }
 
     @Override
-    public boolean Complete_Order(int OrderID, String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod) {
+        public boolean Complete_Order(String orderDate, String requiredDate, int UserID, String note, String comments, String status, long payment, String paymentMethod) {
         Session session = template.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            Order newOrder = new Order(OrderID, orderDate, null, requiredDate, UserID, note, comments, status, payment, paymentMethod);
+            Order newOrder = new Order(orderDate, null, requiredDate, UserID, note, comments, status, payment, paymentMethod);
             session.persist(newOrder);
             transaction.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             transaction.rollback();
             return false;
         }
 
         return true;
+    }
+
+    public int getID(int ID){
+
     }
 
     @Override

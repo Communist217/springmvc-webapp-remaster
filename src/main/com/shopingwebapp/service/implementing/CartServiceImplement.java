@@ -1,9 +1,11 @@
 package main.com.shopingwebapp.service.implementing;
 
+import main.com.shopingwebapp.date_converter.Date_Convert;
 import main.com.shopingwebapp.service.CartService;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Controller(value = "CartController")
+@Service
 public class CartServiceImplement implements CartService {
 
     @Override
@@ -12,16 +14,16 @@ public class CartServiceImplement implements CartService {
     }
 
     @Override
-    public String order_finalize(String[] Product_list_id, String[] Product_list_price, String[] Product_list_quantity, int UserID, int OrderID, String orderDate, String requiredDate, String note, String comments, String status, long payment, String paymentMethod, long gap) {
+    public String order_finalize(String[] Product_list_id, String[] Product_list_price, String[] Product_list_quantity, int UserID, String orderDate, String requiredDate, String note, String comments, String status, long payment, String paymentMethod, long gap) {
 
         String order_init_status = "";
         if (gap >= 1) {
-            if(daoHibernate_util.Complete_Order(OrderID, orderDate, requiredDate, UserID, note, comments, status, payment, paymentMethod)) {
+            if(daoHibernate_util.Complete_Order(orderDate, requiredDate, UserID, note, comments, status, payment, paymentMethod)) {
                 for(int i = 0; i < Product_list_id.length; i++) {
                     for (int j = i; j < (i+1); j++) {
-                        if (daoHibernate_util.Set_Order_Details(OrderID, Integer.valueOf(Product_list_id[i]), Long.valueOf(Product_list_price[j]), Integer.valueOf(Product_list_quantity[j]))) {
+                        if (daoHibernate_util.Set_Order_Details(Integer.valueOf(Product_list_id[i]), Long.valueOf(Product_list_price[j]), Integer.valueOf(Product_list_quantity[j]))) {
                             daoHibernate_util.InStock_Decrease(Integer.valueOf(Product_list_id[i]), Integer.valueOf(Product_list_quantity[j]));
-                            System.out.println("Successfully initiating order");;
+                            System.out.println("Successfully initiating order");
                         }
                     }
                 }

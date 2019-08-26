@@ -60,10 +60,10 @@ function Remove_product(Productname, pid){
 }
 
 //Confirm box for order
-function CF_Order(OrderID){
+function CF_Order(){
     swalWithBootstrapButtons.fire({
         title: '<strong style="font-family: Calibri, sans-serif; color: #f27474;">Are you sure?</strong>',
-        text: 'Once done, Order ID: ' + OrderID + ' will be added to your Orders list and you will get your merchandise(s) on the ship date!',
+        text: 'Once done, This order will be added to your Orders list and you will get your merchandise(s) on the ship date!',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, do it!',

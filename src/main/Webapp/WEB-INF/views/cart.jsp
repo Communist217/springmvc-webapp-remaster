@@ -104,7 +104,6 @@
                             <button class="append" onclick="this.classList.toggle('active')" type="button"></button>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <% int rand = (int)(Math.random()*999999 +1); %>
                         <div class="orderfill">
                             <form id="Final" action="finalize_order" method="post">
                                 <c:forEach var="P_List" items="${list.rows}">
@@ -112,12 +111,6 @@
                                     <input type="hidden" name="Product_List_Price" form="Final" class="form-control" value="${P_List.Price * P_List.Quantity}" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
                                     <input type="hidden" name="Product_List_Quantity" form="Final" value="${P_List.Quantity}" readonly>
                                 </c:forEach>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Order ID</span>
-                                    </div>
-                                    <input type="text" name="OrderID" form="Final" class="form-control" value="<%=rand%>" aria-label="Default" aria-describedby="inputGroup-sizing-default" readonly>
-                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Order Date</span>
@@ -177,7 +170,7 @@
                                         </form>
                                     </div>
                                 </c:forEach>
-                                <button type="button" form="Final" class="Order_done" onclick="CF_Order(<%=rand%>)" style="float: right;">Done!</button>
+                                <button type="button" form="Final" class="Order_done" onclick="CF_Order()" style="float: right;">Done!</button>
                             </form>
                         </div>
                     </div>

@@ -15,8 +15,8 @@
         </id>
 
         <property name = "OrderDate" column = "orderDate" type = "string"/>
-        <property name = "ShippedDate" column = "ShippedDate" type = "timestamp"/>
-        <property name = "RequiredDate" column = "RequiredDate" type = "timestamp"/>
+        <property name = "ShippedDate" column = "ShippedDate" type = "string" not-null="false"/>
+        <property name = "RequiredDate" column = "RequiredDate" type = "string" not-null="true"/>
         <property name = "UserID" column = "MemberID" type="int"/>
         <property name = "NoteFromCus" column="noteFromCustomer" type="string"/>
         <property name = "Comments" column="Comments" type="string"/>

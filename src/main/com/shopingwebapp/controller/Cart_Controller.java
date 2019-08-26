@@ -28,12 +28,11 @@ public class Cart_Controller {
     }
 
     @RequestMapping(value = "/finalize_order", method = RequestMethod.POST)
-    public void finalize_order(HttpServletRequest request) {
+    public void finalize_order(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String[] Product_list_id = request.getParameterValues("Product_List");
         String[] Product_list_price = request.getParameterValues("Product_List_Price");
         String[] Product_list_quantity = request.getParameterValues("Product_List_Quantity");
         int UserID = Integer.valueOf(request.getParameter("UserID"));
-        int OrderID = Integer.valueOf(request.getParameter("OrderID"));
         String orderDate = request.getParameter("OrderDate");
         String requiredDate = request.getParameter("RequiredDate");
         String note = request.getParameter("Note");
@@ -43,7 +42,9 @@ public class Cart_Controller {
         String paymentMethod = request.getParameter("Method");
         long gap = Date_Convert.Day_Gap(orderDate, requiredDate);
         System.out.println( gap + " days.");
+        System.out.println(requiredDate);
+        String noti = cartServiceImplement.order_finalize(Product_list_id, Product_list_price, Product_list_quantity, UserID, orderDate, requiredDate, note, comments, status, payment, paymentMethod, gap);
+        System.out.println(noti);
 
-        cartServiceImplement.order_finalize(Product_list_id, Product_list_price, Product_list_quantity, UserID, OrderID, orderDate, requiredDate, note, comments, status, payment, paymentMethod, gap);
     }
 }

@@ -16,8 +16,7 @@ public class Order implements Serializable {
 
     public Order() { }
 
-    public Order(int orderID, String orderDate, String shippedDate, String requiredDate, int userID, String noteFromCus, String comments, String status, long payment, String paymentMethod) {
-        OrderID = orderID;
+    public Order(String orderDate, String shippedDate, String requiredDate, int userID, String noteFromCus, String comments, String status, long payment, String paymentMethod) {
         OrderDate = orderDate;
         ShippedDate = shippedDate;
         RequiredDate = requiredDate;
