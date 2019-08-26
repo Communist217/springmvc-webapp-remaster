@@ -2,7 +2,6 @@ package main.com.shopingwebapp.controller;
 
 import main.com.shopingwebapp.date_converter.Date_Convert;
 import main.com.shopingwebapp.service.implementing.CartServiceImplement;
-import main.com.shopingwebapp.service.implementing.HomeServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,7 @@ public class Cart_Controller {
 
     @RequestMapping(value = "/finalize_order", method = RequestMethod.POST)
     public void finalize_order(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
         String[] Product_list_id = request.getParameterValues("Product_List");
         String[] Product_list_price = request.getParameterValues("Product_List_Price");
         String[] Product_list_quantity = request.getParameterValues("Product_List_Quantity");
@@ -43,8 +43,26 @@ public class Cart_Controller {
         long gap = Date_Convert.Day_Gap(orderDate, requiredDate);
         System.out.println( gap + " days.");
         System.out.println(requiredDate);
-        String noti = cartServiceImplement.order_finalize(Product_list_id, Product_list_price, Product_list_quantity, UserID, orderDate, requiredDate, note, comments, status, payment, paymentMethod, gap);
-        System.out.println(noti);
-
+        String notify = cartServiceImplement.order_finalize(Product_list_id, Product_list_price, Product_list_quantity, UserID, orderDate, requiredDate, note, comments, status, payment, paymentMethod, gap);
+        PrintWriter writer = response.getWriter();
+        writer.write(notify);
     }
+
+    @RequestMapping(value = "/change_quantity", method = RequestMethod.POST)
+    public String change_quantity(HttpServletRequest request) {
+        String ProductID = request.getParameter("ProductID");
+        String UserID = request.getParameter("UserID");
+        String quantity_adjust = request.getParameter("quantity_adjust");
+        cartServiceImplement.quantity_adjust(Integer.valueOf(ProductID), Integer.valueOf(UserID), Integer.valueOf(quantity_adjust));
+        return "cart";
+    }
+
+    @RequestMapping(value = "/remove_product_by_option", method = RequestMethod.POST)
+    public String remove_product_by_option(HttpServletRequest request) {
+        String ProductID = request.getParameter("Pid");
+        String UserID = request.getParameter("Uid");
+        cartServiceImplement.remove_product_by_option(Integer.valueOf(ProductID), Integer.valueOf(UserID));
+        return "cart";
+    }
+
 }

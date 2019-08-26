@@ -80,14 +80,15 @@ html {
 }
 
 .Order_done {
-     background-color: white;
-     border-radius: 5px;
-     border: 1px solid #20c997;
-     color: #20c997;
-     width: 75px;
-     height: 30px;
-     font-size: 14px;
-     transition: all 0.5s;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #20c997;
+    color: #20c997;
+    width: 75px;
+    height: 30px;
+    padding: 3px;
+    font-size: 14px;
+    transition: all 0.5s;
  }
 
 .Order_done:hover {

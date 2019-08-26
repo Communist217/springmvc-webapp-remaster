@@ -28,6 +28,12 @@
             </list>
         </property>
 
+        <property name="annotatedClasses">
+            <list>
+                <value>main.com.entity.order.OrderDetails</value>
+            </list>
+        </property>
+
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

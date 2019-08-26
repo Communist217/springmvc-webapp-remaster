@@ -58,7 +58,7 @@
                             <ul style="list-style: none; padding: 3px 0px 0px;" >
                                 <c:forEach var = "result" items = "${list.rows}">
                                     <li id="product" style="padding-top: 9px; padding-bottom: 9px;">
-                                        <form id="Removed-no<c:out value="${result.ProductID}"></c:out>" action="RemoveProductFromOrder" method="post">
+                                        <form id="Removed-no<c:out value="${result.ProductID}"></c:out>" action="remove_product_by_option" method="post">
                                             <h6 style="padding: 5px;"><mark>Product#: <c:out value="${result.ProductID}">N/A</c:out></mark></h6>
                                             <span style="display: inline-block;">
                                                     <img src= "<c:out value="${result.Imagesource}">N/A</c:out>" style=" height: 100px; width: 100px; float: left;" alt="Product">
@@ -71,19 +71,19 @@
                                                 <%--Remove a product in the cart--%>
                                             <input type="hidden" name="Pid" value="<c:out value="${result.ProductID}"></c:out>">
                                             <input type="hidden"  name="Uid" value="<c:out value="${result.MemberID}"></c:out>">
-                                            <button type="button" name="Remove" onclick="Remove_product('${result.Productname}', '${result.ProductID}');" class="Remove_order" style="position: absolute; margin-left: 22px; margin-top: 66px; background: url('Style/IMG/Remove.png') no-repeat; background-position: center; width: 16px; height: 16px; border: none; opacity: 0.5;"></button>
+                                            <a type="button" name="Remove" href="javascript:Remove_product('${result.Productname}', '${result.ProductID}');" class="Remove_order" style="position: absolute; margin-left: 22px; margin-top: 66px; width: 16px; height: 16px; border: none; opacity: 0.5; outline: none;"><img src="template/IMG/Remove.png"></a>
                                             <c:set var = "Price" value = "${result.Price * result.Quantity}"/>
                                             <span style="display: inline-block; float: right">
                                                     <fmt:setLocale value="en-us"/>
                                                     <p>Price: <fmt:formatNumber value="${Price}" type="currency"/></p><br>
                                                 </span>
                                         </form>
-                                        <form id="change_number<c:out value="${result.ProductID}"></c:out>" action="QuantityAdjust" method="post">
+                                        <form id="change_number<c:out value="${result.ProductID}"></c:out>" action="change_quantity" method="post">
                                                   <span style="margin-top: -90px; float: right;">Quantity:
-                                                      <input type="hidden" name="Productid" value="<c:out value="${result.ProductID}"></c:out>">
-                                                      <input type="hidden"  name="Userid" value="<c:out value="${result.MemberID}"></c:out>">
+                                                      <input type="hidden" name="ProductID" value="<c:out value="${result.ProductID}"></c:out>">
+                                                      <input type="hidden"  name="UserID" value="<c:out value="${result.MemberID}"></c:out>">
                                                       <input type="number" id="adjust<c:out value="${result.ProductID}"></c:out>" onclick="expand_button('<c:out value="${result.ProductID}"></c:out>')" onblur="hide_button('<c:out value="${result.ProductID}"></c:out>')" name="quantity_adjust" value="${result.Quantity}" style="width: 50px; text-align: center;" min="1" max="10" class="quantity">
-                                                      <button type="button" onclick="Quantity_Change('${result.ProductID}', '${result.Productname}');" id="quantity_adjust_btn<c:out value="${result.ProductID}"></c:out>" class = "btn btn-light btn-sm adjust" style="margin-top: -3px; margin-left: -3px; height: 30px;">Change</button>
+                                                      <a href="javascript:Quantity_Change('${result.ProductID}', '${result.Productname}');" id="quantity_adjust_btn<c:out value="${result.ProductID}"></c:out>" class = "btn btn-light btn-sm adjust" style="margin-top: -3px; margin-left: -3px; height: 30px;">Change</a>
                                                   </span>
                                         </form>
                                     </li>
@@ -170,7 +170,7 @@
                                         </form>
                                     </div>
                                 </c:forEach>
-                                <button type="button" form="Final" class="Order_done" onclick="CF_Order()" style="float: right;">Done!</button>
+                                <a href="javascript:CF_Order()" form="Final" class="Order_done"  style="float: right; text-decoration: none;">Done!</a>
                             </form>
                         </div>
                     </div>

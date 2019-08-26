@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/bootstrap-4.1.3-dist/css/bootstrap.css"/>'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/Sweet/sweetalert2.css"/>'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/template/css/Order.css"/>'>
+        <link rel="stylesheet" type="text/css" href="<c:url value='/template/css/Footer.css'/>" />
     </head>
     <sql:setDataSource var="Order_Management"  driver = "com.mysql.cj.jdbc.Driver"
                        url = "jdbc:mysql://localhost:3306/onlineshopdatabase?useSSL=false"
@@ -27,14 +28,15 @@
         <sql:param value="${User.getUserID()}"/>
     </sql:query>
     <body style="font-family: 'Calibri', sans-serif; font-size: 16px;">
-        <input type="hidden" name="UserID" value="<%=session.getAttribute("UserID")%>">
+        <%@include file="footer.jsp"%>
+        <input type="hidden" name="UserID" value="${User.getUserID()}">
         <div>
             <%--bar navigation--%>
             <header class="bar">
                 <section style="max-width: 1119px; margin: auto;">
                     <div style="margin-top: 2px;" title="Here is where the product(s) which has been added by you.">
                                     <span>
-                                        <img src="Style/IMG/order-manage.png" style="width: 20px; height: 20px;">
+                                        <img src="template/IMG/order-manage.png" style="width: 20px; height: 20px;">
                                     </span>
                         <span style="position: absolute; padding-left: 5px; margin-top: -2px;"> Your Orders</span>
                     </div>
@@ -45,8 +47,8 @@
             <%--The test condition that determines whether or not the body content should be processed, when there is/are order(s).--%>
             <c:if test="${Order != null}">
                 <section class="Order_list">
-                    <a href="Main_Page" style="text-decoration: none; padding: 5px; color: #000000">
-                        <img src="Style/IMG/left-arrow.png" style="margin-top: -2px;"> Go back to Main Page
+                    <a href="main-page" style="text-decoration: none; padding: 5px; color: #000000">
+                        <img src="template/IMG/left-arrow.png" style="margin-top: -2px;"> Go back to Main Page
                     </a>
                     <c:forEach items="${Order.rows}" var="res">
                         <div style="margin-top: 5px; margin-bottom: -10px;" >
@@ -74,7 +76,7 @@
 
                                             <c:if test="${result.gap != null && result.shippeddate <= current}">
                                                             <span style="float: right;">
-                                                                <img src="Style/IMG/Delivered.png" style="width: 20px; height: 20px;"><p style="display: inline; margin-left: 4px;">Delivered</p>
+                                                                <img src="template/IMG/Delivered.png" style="width: 20px; height: 20px;"><p style="display: inline; margin-left: 4px;">Delivered</p>
                                                             </span>
                                                 <sql:update dataSource="${Order_Management}">
                                                     update orders
@@ -84,7 +86,7 @@
                                             </c:if>
                                             <c:if test="${result.gap == null || result.shippeddate > current}">
                                                             <span style="float: right;">
-                                                                <img src="Style/IMG/in-process.gif" style="width: 20px; height: 20px;"><p style="display: inline; margin-left: 4px;">In Process</p>
+                                                                <img src="template/IMG/in-process.gif" style="width: 20px; height: 20px;"><p style="display: inline; margin-left: 4px;">In Process</p>
                                                             </span>
                                                 <sql:update dataSource="${Order_Management}">
                                                     update orders
@@ -108,23 +110,23 @@
                                 on o1.productid = p.productid
                                 inner join orders o2
                                 on o1.OrderID = o2.orderID
-                                where o1.OrderID = <c:out value="${res.OrderID}"/> and o2.MemberID = <%=session.getAttribute("UserID")%>;
+                                where o1.OrderID = <c:out value="${res.OrderID}"/> and o2.MemberID = ${User.getUserID()};
                             </sql:query>
                             <div class="order_details list<c:out value="${res.OrderID}"/>" style="margin-bottom: 10px;">
                                 <div>
                                     <c:if test="${res.PaymentMethod == 'Credit Card'}">
                                         <p style="float: right;">
-                                            <strong>Payment Method:</strong> <img src="Style/IMG/credit_card.png" style="width: 30px; height: 30px;" title="Credit Card">
+                                            <strong>Payment Method:</strong> <img src="template/IMG/credit_card.png" style="width: 30px; height: 30px;" title="Credit Card">
                                         </p>
                                     </c:if>
                                     <c:if test="${res.PaymentMethod == 'Bitcoin'}">
                                         <p style="float: right;">
-                                            <strong>Payment Method:</strong> <img src="Style/IMG/bitcoin.png" style="width: 30px; height: 30px; padding-bottom: 1px;" title="Bitcoin">
+                                            <strong>Payment Method:</strong> <img src="template/IMG/bitcoin.png" style="width: 30px; height: 30px; padding-bottom: 1px;" title="Bitcoin">
                                         </p>
                                     </c:if>
                                     <c:if test="${res.PaymentMethod == 'Cash'}">
                                         <p style="float: right;">
-                                            <strong>Payment Method:</strong> <img src="Style/IMG/money_cash.png" style="width: 30px; height: 30px; padding-bottom: 2px;" title="Cash">
+                                            <strong>Payment Method:</strong> <img src="template/IMG/money_cash.png" style="width: 30px; height: 30px; padding-bottom: 2px;" title="Cash">
                                         </p>
                                     </c:if>
                                     <span style="display: block;">

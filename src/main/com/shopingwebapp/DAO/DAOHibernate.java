@@ -54,7 +54,11 @@ public interface DAOHibernate {
 
     public void Add_More_To_Quantity(int ProductID, int UserID);
 
+    public void Quantity_Adjust(int ProductID, int UserID, int New_Quantity);
+
     public void Remove_Preorder(int UserID);
+
+    public void Remove_Product_From_Preorder(int UserID, int ProductID);
 
     public void InStock_Decrease(int ProductID, int Quantity);
 

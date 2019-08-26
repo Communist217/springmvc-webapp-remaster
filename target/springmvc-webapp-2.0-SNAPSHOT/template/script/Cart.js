@@ -70,6 +70,7 @@ function CF_Order(){
         cancelButtonText: 'Not yet!',
     }).then((result) => {
         if (result.value) {
+            let all_input = $('#Final').serialize();
             document.querySelector('#Final').submit();
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {

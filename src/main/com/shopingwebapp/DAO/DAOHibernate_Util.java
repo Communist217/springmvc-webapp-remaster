@@ -1,7 +1,9 @@
 package main.com.shopingwebapp.DAO;
 
 import main.com.entity.like.Like;
+import main.com.entity.order.Composite_ID.Composite_ID;
 import main.com.entity.order.Order;
+import main.com.entity.order.OrderDetails;
 import main.com.entity.order.Preorder;
 import main.com.entity.product.Product;
 import main.com.entity.product.ProductType;
@@ -20,6 +22,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -344,12 +347,32 @@ public class DAOHibernate_Util implements DAOHibernate {
         session.close();
     }
 
+    @Override
     public void Add_More_To_Quantity(int ProductID, int UserID) {
         Session session = template.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
             Query query = session.createQuery("update Preorder set quantity = quantity + 1 where productID=:ProductID and userID=:UserID");
+            query.setParameter("ProductID", ProductID);
+            query.setParameter("UserID", UserID);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+
+        session.close();
+    }
+
+    @Override
+    public void Quantity_Adjust(int ProductID, int UserID, int New_Quantity) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("update Preorder set quantity =:New_Quantity where productID=:ProductID and userID=:UserID");
+            query.setParameter("New_Quantity", New_Quantity);
             query.setParameter("ProductID", ProductID);
             query.setParameter("UserID", UserID);
             query.executeUpdate();
@@ -378,6 +401,27 @@ public class DAOHibernate_Util implements DAOHibernate {
 
         session.close();
     }
+
+    @Override
+    public void Remove_Product_From_Preorder(int ProductID, int UserID) {
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("delete from Preorder where userID=:UserID and productID=:ProductID");
+            query.setParameter("UserID", UserID);
+            query.setParameter("ProductID", ProductID);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+
+        session.close();
+    }
+
+    @Override
     public void InStock_Decrease(int ProductID, int Quantity) {
         Session session = template.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -413,6 +457,7 @@ public class DAOHibernate_Util implements DAOHibernate {
             return false;
         }
 
+        session.close();
         return true;
     }
 
@@ -426,7 +471,20 @@ public class DAOHibernate_Util implements DAOHibernate {
 
     @Override
     public boolean Set_Order_Details(int ProductID, Long Price, int Quantity) {
-        System.out.println(getOrderID());
+        Session session = template.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            OrderDetails newOrderDetails = new OrderDetails(new Composite_ID(getOrderID(), ProductID), Price, Quantity);
+            session.persist(newOrderDetails);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        }
+
+        session.close();
         return true;
     }
 
