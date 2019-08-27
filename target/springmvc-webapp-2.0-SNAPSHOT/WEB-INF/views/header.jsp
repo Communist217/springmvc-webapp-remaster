@@ -92,7 +92,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                 <c:if test="${not empty User.getUserID()}">
                     <a class="dropdown-item" href="Profile.jsp"><c:out value="${User.getFullname()}"/></a>
-                    <a class="dropdown-item" href="Order_Management_Page">
+                    <a class="dropdown-item" href="order_management">
                         <span><img src="template/IMG/order-manage.png" style="width: 20px; height: 20px; margin-right: 2px; margin-top: -2px;" alt="Login"></span>
                         <span>Your Orders</span>
                     </a>
