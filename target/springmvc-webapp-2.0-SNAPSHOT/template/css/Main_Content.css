@@ -9,13 +9,15 @@ html {
     padding-right: 200px;
     min-width: 930px;
     margin: auto;
-
+    padding-bottom: 55px;
 }
+
 #Sort_option {
     float: right;
     margin: 7px;
     border: none;
 }
+
 .Product-list {
     margin: 0px 40px;
     max-height: 650px;

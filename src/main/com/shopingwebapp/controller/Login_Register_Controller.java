@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.util.StringTokenizer;
 
 //This tells that it is a spring controller
 @Controller (value = "LoginController")
@@ -60,9 +63,44 @@ public class Login_Register_Controller {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/create-new-account", method = RequestMethod.GET)
-    public ModelAndView new_account() {
-        ModelAndView modelAndView = new ModelAndView("create_account");
+    @RequestMapping(value = "/create-new-account", method = RequestMethod.POST)
+    public ModelAndView new_account(HttpServletRequest request) throws UnsupportedEncodingException {
+        ModelAndView modelAndView = null;
+        request.setCharacterEncoding("UTF-8");
+        String new_username = request.getParameter("Create_Username");
+        String new_password = request.getParameter("Create_Password");
+        String confirm_password = request.getParameter("Confirm_Password");
+        String fullname = request.getParameter("Create_Fullname");
+        String address = request.getParameter("Create_Address");
+        String phone = request.getParameter("Create_Phone");
+        String gender = request.getParameter("Create_Gender");
+        String birthdate = request.getParameter("Create_BirthDate");
+        String email = request.getParameter("Create_Email");
+        StringTokenizer checkout=new StringTokenizer(new_username);
+
+        if (new_username.length() >= 5 && new_password.length() > 0 && confirm_password.equals(new_password)) {
+
+            if (checkout.countTokens() == 1) {
+                if (homeServiceImplement.create_NewAccount(new_username, new_password, fullname, address, phone, gender, birthdate, email)) {
+                    System.out.println("You Account has been successfully created.");
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute("User", homeServiceImplement.getUser());
+                    modelAndView = new ModelAndView("home");
+                }
+                else {
+                    System.out.println( new_username + " has already been used by another user, pls choose a new username.");
+                    modelAndView = new ModelAndView("login");
+                }
+            }
+            else {
+                System.out.println("Username " + new_username + " cannot be created due to the space syntax and also your account need to contain at least more than 5 characters.");
+                modelAndView = new ModelAndView("login");
+            }
+        }
+        else {
+            System.out.println("Please input all the textfield! :) ");
+            modelAndView = new ModelAndView("login");
+        }
         return modelAndView;
     }
 

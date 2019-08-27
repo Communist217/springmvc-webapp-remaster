@@ -45,7 +45,7 @@
                 <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
             </form>
 
-            <form action="NewAccount" method="post" class="form-signup">
+            <form action="create-new-account" method="post" class="form-signup">
                 <div class="social-login">
                     <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
                 </div>

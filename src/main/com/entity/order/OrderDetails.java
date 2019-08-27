@@ -13,8 +13,9 @@ import java.io.Serializable;
 public class OrderDetails implements Serializable {
     @EmbeddedId
     private Composite_ID composite_id;
+    @Column(name = "Price", nullable = false, columnDefinition = "int default 1")
     private long Price;
-    @Column(name = "Quantity", nullable = false, columnDefinition = "int default 1")
+    @Column(name = "Product_Quantity", nullable = false, columnDefinition = "int default 1")
     private int Quantity;
 
     public OrderDetails(Composite_ID composite_id, long price, int quantity) {

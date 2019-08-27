@@ -16,7 +16,7 @@ $(function () {
         $('#Product_opinion').addClass('expand');
     });
 
-    $('#Product_opinion').on("keyup", function () {
+    $('#Product_opinion').on("keypress", function () {
         let word = document.getElementById('Product_opinion').value;
         let count = word.toString().length;
         document.getElementById('caution').innerHTML = '80 words minimum.  ' + '(' + count + ' word(s))';

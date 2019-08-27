@@ -15,7 +15,7 @@ public interface CartService {
 
     public String order_finalize(String[] Product_list_id, String[] Product_list_price, String[] Product_list_quantity, int UserID, String orderDate, String requiredDate, String note, String comments, String status, long payment, String paymentMethod, long gap);
 
-    public void quantity_adjust(int ProductID, int UserID, int New_Quantity);
+    public String quantity_adjust(int ProductID, int UserID, int New_Quantity);
 
     public void remove_product_by_option(int ProductID, int UserID);
 }

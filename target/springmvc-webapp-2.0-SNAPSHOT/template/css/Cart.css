@@ -18,7 +18,7 @@ html {
 
 .Preorder_list {
     position: absolute;
-    margin-top: 55px;
+    top: 55px;
     left: 200px;
     right: 200px;
     min-width: 670px;

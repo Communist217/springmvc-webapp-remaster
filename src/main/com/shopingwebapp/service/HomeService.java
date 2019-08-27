@@ -20,6 +20,10 @@ public interface HomeService {
     BeanFactory factory = new XmlBeanFactory(resource);
     final DAOHibernate_Util daoHibernate_util = (DAOHibernate_Util) factory.getBean("daoHibernateUtil");
 
+    public boolean create_NewAccount(String Create_Username, String Create_Password, String Fullname, String Address, String Phone, String Gender, String BirthDate, String Email);
+
+    public boolean change_password(String Username, String Email, String New_Password, String Confirm_Password);
+
     public boolean checkAccount(String Username, String Password);
 
     public List<Product> getList(String price_type, String sort_option);

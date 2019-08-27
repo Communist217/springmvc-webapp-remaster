@@ -21,6 +21,22 @@ public class HomeServiceImplement implements HomeService {
     private User user;
 
     @Override
+    public boolean create_NewAccount(String Create_Username, String Create_Password, String Fullname, String Address, String Phone, String Gender, String BirthDate, String Email) {
+
+        if (daoHibernate_util.Create_New_Account(Create_Username, Create_Password, Fullname, Address, Phone, Gender, BirthDate, Email))
+        {
+            user = daoHibernate_util.getAccount(Create_Username, Create_Password);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean change_password(String Username, String Email, String New_Password, String Confirm_Password) {
+        return false;
+    }
+
+    @Override
     public boolean checkAccount(String Username, String Password) {
         user = daoHibernate_util.getAccount(Username, Password);
         if (daoHibernate_util.isExistence()) {
@@ -28,6 +44,7 @@ public class HomeServiceImplement implements HomeService {
         }
         return false;
     }
+
 
     public User getUser() {
         return user;

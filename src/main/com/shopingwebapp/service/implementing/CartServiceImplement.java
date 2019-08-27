@@ -40,8 +40,12 @@ public class CartServiceImplement implements CartService {
     }
 
     @Override
-    public void quantity_adjust(int ProductID, int UserID, int New_Quantity) {
-        daoHibernate_util.Quantity_Adjust(ProductID, UserID, New_Quantity);
+    public String quantity_adjust(int ProductID, int UserID, int New_Quantity) {
+        if(New_Quantity <= 10) {
+            daoHibernate_util.Quantity_Adjust(ProductID, UserID, New_Quantity);
+            return "Accept";
+        }
+        return "False";
     }
 
     @Override
