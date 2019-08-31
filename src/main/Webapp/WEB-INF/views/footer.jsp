@@ -11,7 +11,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center " style="padding: 10px 0px;">© 2019 Copyright:
-        <a href="https://github.com/Communist217" style="color: #005cbf; text-decoration: none;"> My Github Page</a>
+        <a href="https://github.com/MinhNgoc61021" style="color: #005cbf; text-decoration: none;"> My Github Page</a>
     </div>
     <!-- Copyright -->
 

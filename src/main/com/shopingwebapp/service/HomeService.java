@@ -26,6 +26,8 @@ public interface HomeService {
 
     public boolean checkAccount(String Username, String Password);
 
+    public User getUser();
+
     public List<Product> getList(String price_type, String sort_option);
 
     public List<Product> searchList(String search_word, int typeid);

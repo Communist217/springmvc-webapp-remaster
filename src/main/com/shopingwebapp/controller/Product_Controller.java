@@ -22,7 +22,7 @@ import java.util.HashMap;
 @Controller(value = "ProductController")
 public class Product_Controller {
     @Autowired
-    private ProductServiceImplement productService;
+    private ProductService productService;
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String access_product(HttpServletRequest request, HttpServletResponse servletResponse) {

@@ -19,6 +19,8 @@ public class Composite_ID implements Serializable {
         ProductID = productID;
     }
 
+    public Composite_ID() { }
+
     public int getOrderID() {
         return OrderID;
     }

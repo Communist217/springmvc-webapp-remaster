@@ -2,7 +2,7 @@ package main.com.shopingwebapp.controller;
 
 import com.google.gson.Gson;
 import main.com.entity.product.Product;
-import main.com.shopingwebapp.service.implementing.HomeServiceImplement;
+import main.com.shopingwebapp.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller (value = "HomeController")
 public class Home_Controller {
     @Autowired
-    private HomeServiceImplement homeServiceImplement;
+    private HomeService homeService;
 
     @RequestMapping (value = "/get_product", method = RequestMethod.GET)
     public void get_product(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -26,7 +26,7 @@ public class Home_Controller {
         System.out.println(price_type);
         System.out.println(sort_option);
         List<Product> productListbyType = new ArrayList<Product>();
-        productListbyType = homeServiceImplement.getList(price_type, sort_option);
+        productListbyType = homeService.getList(price_type, sort_option);
         response.setContentType("application/json");
         new Gson().toJson(productListbyType, response.getWriter());
     }
@@ -46,7 +46,7 @@ public class Home_Controller {
         String search = request.getParameter("Search_result");
         int TypeID = Integer.valueOf(request.getParameter("Typeid"));
         System.out.println(search + " " + TypeID);
-        List<Product> list = homeServiceImplement.searchList(search, TypeID);
+        List<Product> list = homeService.searchList(search, TypeID);
         response.setContentType("application/json");
         new Gson().toJson(list, response.getWriter());
     }

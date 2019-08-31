@@ -13,7 +13,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/onlineshopdatabase?useSSL=false" />
+        <property name="url" value="jdbc:mysql://localhost:3306/onlineshopdatabase?allowPublicKeyRetrieval=true&amp;useSSL=false" />
         <property name="username" value="root" />
         <property name="password" value="minhngoc61021" />
     </bean>

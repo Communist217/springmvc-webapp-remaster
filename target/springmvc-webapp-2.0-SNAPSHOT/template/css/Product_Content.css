@@ -253,4 +253,8 @@ html {
         margin: 0;
         float: none;
     }
+
+    .review_list {
+        margin-bottom: 55px;
+    }
 }

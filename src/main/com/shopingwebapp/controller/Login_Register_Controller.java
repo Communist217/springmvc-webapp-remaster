@@ -1,7 +1,7 @@
 package main.com.shopingwebapp.controller;
 
 import main.com.entity.user.User;
-import main.com.shopingwebapp.service.implementing.HomeServiceImplement;
+import main.com.shopingwebapp.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 public class Login_Register_Controller {
     //Model and View push data to view
     @Autowired
-    private HomeServiceImplement homeServiceImplement;
+    private HomeService homeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(ModelAndView modelAndView, Model model, HttpServletRequest httpServletRequest) {
@@ -40,9 +40,9 @@ public class Login_Register_Controller {
         ModelAndView modelAndView = null;
         System.out.println("Name is " + username);
         System.out.println("Password is " + password);
-        if (homeServiceImplement.checkAccount(username, password)) {
+        if (homeService.checkAccount(username, password)) {
                 modelAndView = new ModelAndView("home");
-                User getUser = homeServiceImplement.getUser();
+                User getUser = homeService.getUser();
                 httpServletRequest.getSession().setAttribute("User", getUser);
         }
         else {
@@ -81,10 +81,10 @@ public class Login_Register_Controller {
         if (new_username.length() >= 5 && new_password.length() > 0 && confirm_password.equals(new_password)) {
 
             if (checkout.countTokens() == 1) {
-                if (homeServiceImplement.create_NewAccount(new_username, new_password, fullname, address, phone, gender, birthdate, email)) {
+                if (homeService.create_NewAccount(new_username, new_password, fullname, address, phone, gender, birthdate, email)) {
                     System.out.println("You Account has been successfully created.");
                     HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("User", homeServiceImplement.getUser());
+                    httpSession.setAttribute("User", homeService.getUser());
                     modelAndView = new ModelAndView("home");
                 }
                 else {
