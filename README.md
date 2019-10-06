@@ -1,4 +1,4 @@
-# E-Commerce web application
+# E-Commerce Web application
 Just for learning to build a relatively small Shoping Web application and experience in coding.
 
 | Structure   | Description                                     |
